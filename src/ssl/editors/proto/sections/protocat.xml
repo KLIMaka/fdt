@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<top>
+	<category name="Critter">
+		<category name="SPECIAL">
+			<field name="strength" id="100" />
+			<field name="perception" id="101" />
+			<field name="endurance" id="102" />
+			<field name="charisma" id="103" />
+			<field name="intelligence" id="104" />
+			<field name="agility" id="105" />
+			<field name="luck" id="106" />
+		</category>
+
+		<category name="DT">
+			<field name="DTNormal" id="117" />
+			<field name="DTLaser" id="118" />
+			<field name="DTFire" id="119" />
+			<field name="DTPlasma" id="120" />
+			<field name="DTElectrical" id="121" />
+			<field name="DTEMP" id="122" />
+			<field name="DTExplode" id="123" />
+		</category>
+
+		<category name="DR">
+			<field name="DRNormal"  id="124"/>
+			<field name="DRLaser"  id="125"/>
+			<field name="DRFire"  id="126"/>
+			<field name="DRPlasma"  id="127"/>
+			<field name="DRElectrical"  id="128"/>
+			<field name="DREMP"  id="129"/>
+			<field name="DRExplode"  id="130"/>
+		</category>
+
+		<field name="hp" id="107" />
+		<field name="ap" id="108" />
+		<field name="ac" id="109" />
+		<field name="unarmedDamage" id="110" />
+		<field name="meleeDamage" id="111" />
+		<field name="carryWeight" id="112" />
+		<field name="sequence" id="113" />
+		<field name="healingRate" id="114" />
+		<field name="criticalChance" id="115" />
+		<field name="betterCriticals" id="117" />
+		<field name="age" id="133" />
+		<field name="gender" id="134" />
+	</category>
+
+	<!-- <category name="General"> <field name="protoID" /> <field name="descrID" 
+		/> <field name="gndFID" /> </category> <category name="Lighting"> <field 
+		name="lightDist" /> <field name="lightIntens" /> </category> <category name="Flags"> 
+		<field name="flags" /> <field name="flagsExt" /> </category> <category name="Script"> 
+		<field name="scriptID" /> </category> <category name="Material"> <field name="matID" 
+		/> </category> <category name="Sound"> <field name="soundID" /> </category> 
+		<category name="Portal"> <field name="walkThru" /> <field name="unknown" 
+		/> </category> <category name="Stairs"> <field name="destPos" /> <field name="destMap" 
+		/> </category> <category name="Elevator"> <field name="elevType" /> <field 
+		name="elevLevel" /> </category> <category name="LadderBottom"> <field name="destPos" 
+		/> </category> <category name="LadderTop"> <field name="destPos" /> </category> 
+		<category name="GenericScenery"> <field name="unknown" /> </category> <category 
+		name="CritterDetails"> <field name="headFID" /> <field name="aiPacket" /> 
+		<field name="teamNum" /> <field name="critterFlags" /> </category> <category 
+		name="Stats"> <category name="Base"> <category name="SPECIAL"> <field name="strength" 
+		/> <field name="perception" /> <field name="endurance" /> <field name="charisma" 
+		/> <field name="intelligence" /> <field name="agility" /> <field name="luck" 
+		/> </category> <category name="DT"> <field name="DTNormal" /> <field name="DTLaser" 
+		/> <field name="DTFire" /> <field name="DTPlasma" /> <field name="DTElectrical" 
+		/> <field name="DTEMP" /> <field name="DTExplode" /> </category> <category 
+		name="DR"> <field name="DRNormal" /> <field name="DRLaser" /> <field name="DRFire" 
+		/> <field name="DRPlasma" /> <field name="DRElectrical" /> <field name="DREMP" 
+		/> <field name="DRExplode" /> </category> <field name="hp" /> <field name="ap" 
+		/> <field name="unarmedDamage" /> <field name="meleeDamage" /> <field name="carryWeight" 
+		/> <field name="sequence" /> <field name="healingRate" /> <field name="criticalChance" 
+		/> <field name="betterCriticals" /> <field name="age" /> <field name="gender" 
+		/> </category> <category name="Plus"> <category name="SPECIAL"> <field name="strength+" 
+		/> <field name="perception+" /> <field name="endurance+" /> <field name="charisma+" 
+		/> <field name="intelligence+" /> <field name="agility+" /> <field name="luck+" 
+		/> </category> <category name="DT"> <field name="DTNormal+" /> <field name="DTLaser+" 
+		/> <field name="DTFire+" /> <field name="DTPlasma+" /> <field name="DTElectrical+" 
+		/> <field name="DTEMP+" /> <field name="DTExplode+" /> </category> <category 
+		name="DR"> <field name="DRNormal+" /> <field name="DRLaser+" /> <field name="DRFire+" 
+		/> <field name="DRPlasma+" /> <field name="DRElectrical+" /> <field name="DREMP+" 
+		/> <field name="DRExplode+" /> </category> <field name="hp+" /> <field name="ap+" 
+		/> <field name="unarmedDamage+" /> <field name="meleeDamage+" /> <field name="carryWeight+" 
+		/> <field name="sequence+" /> <field name="healingRate+" /> <field name="criticalChance+" 
+		/> <field name="betterCriticals+" /> <field name="age+" /> <field name="gender+" 
+		/> </category> <category name="Skills"> <field name="smallGuns" /> <field 
+		name="bigGuns" /> <field name="energyWeapons" /> <field name="unarmed" /> 
+		<field name="melee" /> <field name="throwing" /> <field name="firsAid" /> 
+		<field name="doctor" /> <field name="sneak" /> <field name="lockpick" /> 
+		<field name="steal" /> <field name="traps" /> <field name="science" /> <field 
+		name="repair" /> <field name="speech" /> <field name="barter" /> <field name="gambling" 
+		/> <field name="outdoorsman" /> </category> <field name="bodyType" /> <field 
+		name="exp" /> <field name="killType" /> <field name="damageType" /> </category> 
+		<category name="Item General"> <field name="size" /> <field name="weight" 
+		/> <field name="cost" /> <field name="invFID" /> </category> <category name="Misc"> 
+		<field name="powerType" /> <field name="powerPID" /> <field name="charges" 
+		/> </category> <category name="Key"> <field name="unknown" /> </category> 
+		<category name="Ammo"> <field name="caliber" /> <field name="quantity" /> 
+		<field name="acAjust" /> <field name="drAjust" /> <field name="dmgMult" /> 
+		<field name="dmgDiv" /> </category> <category name="Weapon"> <field name="animCode" 
+		/> <field name="minDmg" /> <field name="maxDmg" /> <field name="dmgType" 
+		/> <field name="maxRange1" /> <field name="maxRange2" /> <field name="projFID" 
+		/> <field name="minST" /> <field name="apCost1" /> <field name="apCost2" 
+		/> <field name="critFail" /> <field name="perk" /> <field name="rounds" /> 
+		<field name="caliber" /> <field name="ammoPID" /> <field name="maxAmmo" /> 
+		<field name="shotSoundID" /> </category> <category name="Drugs"> <field name="stat0" 
+		/> <field name="stat1" /> <field name="stat2" /> <category name="Period0"> 
+		<field name="0amount0" /> <field name="0amount1" /> <field name="0amount2" 
+		/> </category> <category name="Period1"> <field name="1duration" /> <field 
+		name="1amount0" /> <field name="1amount1" /> <field name="1amount2" /> </category> 
+		<category name="Period2"> <field name="2duration" /> <field name="2amount0" 
+		/> <field name="2amount1" /> <field name="2amount2" /> </category> <field 
+		name="addictionRate" /> <field name="wEffect" /> <field name="wOnSet" /> 
+		</category> <category name="Container"> <field name="maxSize" /> <field name="containerFlags" 
+		/> </category> <category name="Armor"> <field name="ac" /> <category name="DR"> 
+		<field name="DRNormal" /> <field name="DRLaser" /> <field name="DRFire" /> 
+		<field name="DRPlasma" /> <field name="DRElectrical" /> <field name="DREMP" 
+		/> <field name="DRExplode" /> </category> <category name="DT"> <field name="DTNormal" 
+		/> <field name="DTLaser" /> <field name="DTFire" /> <field name="DTPlasma" 
+		/> <field name="DTElectrical" /> <field name="DTEMP" /> <field name="DTExplode" 
+		/> </category> <field name="perk" /> <field name="maleFID" /> <field name="femaleFID" 
+		/> </category> -->
+</top>

@@ -1,0 +1,158 @@
+dude_obj|Returns a pointer to the dude object (the player).
+self_obj|Returns a pointer to the object connected to this script.
+target_obj|Returns a pointer to the target object for this action.  The target object is what is being acted upon.
+source_obj|Returns a pointer to the source object (activator) for this action.  The source object for a pickup_proc (pickup an object script_action) would be the critter picking the object up, for instance.
+obj_pid|Returns the prototype id # (pid) of an object (obj).
+add_mult_objs_to_inven|Adds (count) instances of an object (item) to another object’s (who’s) inventory.  Note that this only works with objects of type Item.
+add_obj_to_inven|Adds an object (item) to another object’s inventory.  Note that this only works with objects of type Item.
+rm_obj_from_inven|Removes an object (obj) from another object’s (who’s) inventory.  Note: this leaves the removed object in at location (0,1) on the map!  You must call move_to(…) to place it back on the map
+rm_mult_objs_from_inven|Removes (count) instances of an object (obj) from another object’s (who’s) inventory.  Note: this leaves the removed object in at location (0,1) on the map!  You must call move_to(…) to place it back on the map. NOTE: This function returns the actual count that was removed (if you attempted to remove more instances than existed).  You *MUST* store this value in a variable (though you don’t have to actually do anything with it).
+item_caps_adjust|Modifies the current caps count in an object (obj) by a given amount (amount).
+item_caps_total|Returns the current caps total in a given object’s (obj) inventory.
+obj_is_carrying_obj_pid|Returns the quantity of objects with matching prototype index #’s (pid) carried in the inventory of another object (obj).
+obj_carrying_pid_obj|Returns an Object pointer to an instance of an object of type pid if an object (who) is carrying an object of that type.
+call|Call statement is used to run other procedure(from another).
+Reply|Sets up a reply block (what the *CRITTER* says).
+float_msg|Attempts to create a floating-text message (str) attached to an object (who) using colors dictated by type.  There are two special types, WARNING and SEQUENTIAL.  WARNING is used to print a message centered on the screen (such as for end-of-quest notifications), and SEQUENTIAL will cycle through the colors, in an attempt to give critters different-colored messages to differentiate them.
+mstr|Returns text from *.msg file.
+display_msg|Displays a string on the in-game PDA display (lower-left hand corner).
+display_mstr|Displays a string on the in-game PDA display (makro to display_msg)
+start_gdialog|Starts a new dialog sequence.
+debug_msg|Prints a string to the debug monitor.  Should be used exclusively for debug information, instead of display_msg()!
+give_exp_points|Adds experience points (points) to the player’s total.  These points may then be used by the player to enhance skills, etc.
+set_local_var|Sets the value of a local variable (var_index) to a given (value).
+local_var|Returns the value of a local variable of given index # (var_index).
+set_map_var|Sets the value of a map-global variable (var_index) to a given (value).
+map_var|Returns the value of a map variable of given index # (var_index).
+set_global_var|Sets the value of a global variable (var_index) to a given (value).
+global_var|Returns the value of a global variable of given index # (var_index).
+obj_can_see_obj|Returns True if the source object has line-of-sight (LOS) with the destination object.  This also takes into account perception & stealth rolls of the objects are critters.
+obj_can_hear_obj|Returns True if the source object is capable of hearing the destination object.  This includes distance factors, current activity (standing/walking/running), and skill use (stealth/etc.).
+set_obj_visibility|Sets the OBJ_OFF flag for an object (makes it not drawn 0 - visible 1 - not visible).
+game_time|Returns the current game time in ticks.
+get_day|Returns the current day of the month.
+game_time_advance|Advances the current game time by ticks.
+game_time_hour|Returns the current hour of the day in a normal format, but without the colon.  For example, the current starting game time is 721 (which is 7:21 am).
+script_overrides|Tells the C-engine that the script will override default behavior for the object.  What this means is that the C-engine will not attempt to do things that it would normally do, in expectation that the script will handle those things itself.  This is an IMPORTANT command!  It is commonly used for the general player actions upon objects, such as looking at them (requesting a description), using them (opening doors, for example), or using items ON them (using a picklock or a key on a door lock).
+Attack|Causes the focused object to attempt to attack an object.  Note that this is a macro to attack_complex().
+attack_complex|Causes the current object (self - must be a critter) to attempt to attack a critter (who) with various parameters modifying the combat:<li><b>called_shot</b> - 0/1/specific means none/random/specific (head, torso, etc.) <li><b>num_attacks</b> - the # of extra attacks the self object gets before the target  <li><b>bonus</b> - the bonus to hit the target on the first turn only  <li><b>min_damage</b> - the minimum damage that will be done the first attack   <li><b>max_damage</b> - the maximum damage that will be done the first attack<li><b>attacker_results</b> - what state the attacker ends in after the first attack<li><b>target_results</b> - what state the target ends in after the first attack
+attack_setup|Sets up an attack from who on victim, without expecting this script to be involved.  Can be used to setup attacks on critters from the map script.
+combat_is_initialized|Returns True if the system is currently in combat mode, False otherwise.
+terminate_combat|Tells the combat system to terminate prematurely.  USE WITH CAUTION.  This doesn’t prevent another (or even the SAME) script from re-starting combat, so make sure you turn off any hostile flags, etc.
+critter_injure|Injures a given critter by crippling given limbs/body parts (defined by DAM_CRIP_ARM_LEFT, DAM_BLIND, etc. in define.h)
+critter_dmg|Injures a given critter with given points of damage.
+add_timer_event|Adds a timed event call to the queue, at a given time offset, to call an object’s script.  Info is used to let scripts differentiate between timed event calls so that they can be hooked in multiple times.  Info is read back by the script using the fixed_param operator.  Note that time is in ticks (you can use game_ticks(seconds_num) to get the time in ticks from time in seconds).
+anim|Sets up a single-frame animation (anim) for the object (who) that runs in the given direction.
+anim_busy|Returns True if object is currently animating, otherwise False.  This can be used to determine if a given object has completed an animation.
+anim_action_frame|Returns the action frame of the given art frame on a given object (who).  This can be used as the delay in an animation registration sequence.
+animate_stand_reverse|Sets up an animation for the currently focused object (self) to run it’s stand animation in reverse.  This is used only for non-critters, to cause them to close (close doors, open containers, etc.)
+animate_stand_reverse_obj|Sets up an animation for an object (obj) to run it’s stand animation in reverse.  This is used only for non-critters, to cause them to close (close doors, open containers, etc.)
+reg_anim_play_sfx|Adds an animation to cause an object (who) to attempt to play a given sound effect (sfx_name) at a given delay from the previous animation!
+reg_anim_animate_forever|Adds a single, in-place animation on an object (what) to an animation sequence-list, at a given delay from the previous animation (delay should always be -1)!  This animation will animate continuously until something in the system interrupts it.  To be used *very* sparingly, for instance Gizmo’s sign and the ‘pray’ signs in the children of the cathedral (which will have to be toned down).
+animate_run_to_tile|Sets up an animation for the self-object to RUN to a given tile (hex).
+animate_stand|Sets up an animation for the currently focused object (self) to run it’s stand animation. This can be used to open doors, open container items (Refridgerator, for example) or to run a critter’s fidget animation.
+create_object_sid|Creates a new object of prototype (pid), placing it at a given tile # and at a given elevation.  If sid is not -1, then it indicates that the default script should be overriden by this new script #.
+is_loading_game|Returns True if the game is currently loading, False otherwise.  This is used so that bad things don’t happen on game load because a script is doing map_enter setup stuff.
+destroy_object|Destroys an object, which will cause it’s script to be called in the destroy_proc section if the object is *NOT* the calling object.
+critter_add_trait|Adds a particular trait (trait) of a given type (trait_type) to a particular critter (who).  Possible traits under the SPECIAL system are limited to:      Perks      Traits      Object-instance information (such as team #’s, ai-packet #’s, etc.)
+set_critter_stat|Sets the value of a desired attribute/stat in a critter to a given value.
+get_critter_stat|Returns the value of a desired attribute/stat in a critter object.
+critter_mod_skill|Modifies a given skill in a given critter object by a given amount.  Note: this currently is only valid on the player (obj_dude) object.
+proto_data|Returns the value of a data-member of a given prototype (pid).
+cur_map_index|Returns the index # of the current map, to be matched with the define-constant in define.h.
+obj_type|Returns the type of an object.  This would be ‘Item’, ‘Wall’, ‘Scenery’, etc.
+obj_is_open|Returns True if a given object is an open object, False if it is closed or not an openable object.
+obj_open|Attempts to open a given object if it is of an openable type.
+obj_close|Attempts to close a given object if it is of an openable type.
+obj_unlock|Attempts to unlock a given object if it is of a lockable type.
+inven_cmds|If you knoi what for is this command then mail me :)
+jam_lock|Jams a lock, which prevents the player from picking the lock for approximately 24 hours.  Meant to be used when a player critically fails to pick a lock.
+use_obj|Uses chosed object.
+pickup_obj|Causes the critter self-object to animate and attempt to pick up a given object.
+use_obj_on_obj|Attempt to use an item object on a target object.  This could be used to have a critter use a Stimpack on the player, for instance, or to use a key on a door.
+wield_obj|Sets up an animation causing a critter (self_obj) to wield an object (obj) in that critters’ inventory.  This puts that object in the critter’s hand.
+destroy_mult_objs|Destroys count number of instances of an item object.  This function will figure out which inventory this item is in (if it isn’t on the ground).  If it is on the ground, of course, there is only one instance of this object, so only one will be destroyed.
+obj_being_used_with|Returns a pointer to the object being used on another object.
+tile_distance_objs|Returns the tile distance between two objects (between their tile #’s).
+tile_distance|Returns the tile distance between two tile #'s.
+tile_is_visible|Returns True if a given hex (tile) is currently visible, i.e. an object on it could conceivably be displayed on-screen.  This includes hexes that may technically have bases that are off-screen, but on whom objects could exist that would bound into the actual display area)
+tile_contains_pid_obj|Returns a pointer to the first object that matches a particular pid # that is on a particular tile and elevation.
+tile_contains_obj_pid|Returns True if a particular tile contains an object with a matching prototype index #.
+tile_num|Returns the tile number of object.
+tile_num_in_direction|Returns the tile number of a tile offset from a starting tile in a given direction (the next tile in that direction).
+critter_attempt_placement|Attempts to place a critter at a given destination hex & elevation, if it fails, then it tries to find a nearby hex that is that is as near as possible to the start hex.
+move_to|Immediately moves an object (obj) to the given tile number and elevation on the current map.
+roll_vs_skill|Returns the value of a completed skill roll made upon an object’s (who’s) skill level with a given skill, and modified by a given amount (may be zero).  This value may then be passed to is_success and is_critical to determine the appropriate states, and the how_much call can be used to determine the difference succeeded or failed by.
+is_success|Returns True if a given contest roll result value is a success, otherwise False.
+is_critical|Returns True if a given contest roll result is a critical result, otherwise False.
+scr_return|Sets the return value for a scripts C-engine node, to be used by C code.
+script_action|Returns the action that has activated this script.  Examples include requests for the description of an object (description_proc), notifications of a spatial script being activated by something hitting its boundary (spatial_proc), or a critter being given its heartbeat (critter_proc, in other words being told to move).
+set_light_level|Sets the ambient light level.  The range is Full Darkness to Full Daylight.
+obj_set_light_level|Set the light level for an object to a given intensity (percentage of possible maximum intensity), and distance of light in hexes.
+set_map_start|Sets the start location & rotation for the next time this map is entered (loaded & run).
+override_map_start|Used when loading a new map, this forces the player (obj_dude) to start at a particular location and rotation when first coming up.
+signal_end_game|Tells the system that a script is indicating the game should be ended.  This will return the player to the main-menu.
+gfade_in|Does a palette fade to black.  The Time parameter is currently not actually used.
+gfade_out|Does a palette fade from black to the game palette.  The Time parameter is currently not actually used.
+game_ui_disable|Disables game user-interface input from the player (to ‘lock-out’ the player).  You *MUST* make sure to re-enable the UI at some point afterwords.
+game_ui_enable|Re-enables game user-interface input from the player.  This *MUST* be called relatively soon after disabling the UI or the player will be stuck, unable to do anything.
+game_ui_is_disabled|Returns True if the game UI is currently disabled (the player is currently ‘locked-out’), and False otherwise.
+using_skill|Returns True if an active skill is being used, False otherwise.  Examples of active skills are Stealth and First Aid.
+action_being_used|Returns the current skill () being used on a script object.
+world_map|Sends a request for the game engine to bring up the World Map screen, for the player to move around to different locations.
+party_add|Adds a given critter into the list of party members.  This will also setup those objects so that they will not be saved in maps, and certain other things.
+party_remove|Removes a given critter from the list of party members.  This will also change those objects so that certain object- and map-level things will respond differently to them.
+party_member_obj|Returns an ObjectPtr to a party member that matches a given pid.  If that critter isn’t currently a member of the party, then it will return NULL.
+party_member_count|Returns the count of the currently in-party party members.  (countHidden) determines whether or not to count the hidden members (hangers-on).
+play_gmovie|Plays one of the Fallout movies (full-screen, compressed, etc.).
+play_sfx|Starts a new sound effect to be played on the queue.
+random|Returns a random value between (min) and (max), inclusive.
+set_map_music|Set a new music for map.
+critter_stop_attacking|Flags the critter object as no longer wishing to be active in combat.
+critter_set_flee_state|Sets the FLEE flag on or off.  This controls whether the critter flees during combat.
+critter_is_fleeing|Returns True if the critter object has its FLEE flag set.
+obj_on_screen|Returns True if a given object is currently being drawn on-screen, False if it is not.
+combat_difficulty|Returns the current Combat difficulty level of the game (defined in the options screen).
+gdialog_mod_barter|Tells the dialog system to switch to the barter screen, using a given modifier.
+rotation_to_tile|Returns the rotation (0…5) to face a particular tile from a particular tile.
+art_anim|Returns the animation that this fid represents (ANIM_stand, ANIM_pickup, etc.).
+obj_art_fid|Zwraca FID (numer grafiki) wskazanego obiektu
+move_obj_inven_to_obj|Moves an object’s (srcObj) inventory into another object’s (destObj) inventory.
+endgame_movie|Plays the endgame movie.
+endgame_slideshow|Plays the endgame slideshow.  The slideshow will fade in to its palette, so it is proper to call gfade_out(1) and then expect this command to fix the palette for you
+difficulty_level|Returns the current Game difficulty level of the game (defined in the options screen).
+explosion|Wywo³uje wybuch o wskazanych parametrach (pozycji,zasiêgu,sile)
+metarule|It is most comlex command in fallout scripting system(see DEFINE.H), many command are in reality makros to metarule and metarule3.
+metarule3|It is most comlex command in fallout scripting system(see DEFINE.H), many command are in reality makros to metarule and metarule3.
+radiation_inc|Increments a critter’s radiation counter by a given amount.  NOTE: This should only be done to the player (obj_dude) in Fallout due to design restrictions!
+radiation_dec|Decrements a critter’s radiation counter by a given amount.  NOTE: This should only be done to the player (obj_dude) in Fallout due to design restrictions
+poison|Increases the a critters’ poison level by a given amount.
+get_poison|Returns the value of a given critters’ poison level.
+game_tics|Przlicza podan¹ liczbe na liczbê ticków gry
+car_current_town|Returns the current town area the car can be found at.  Area #’s can be found in scripts\headers\maps.h
+car_give_to_party|Gives the car to the party, and takes them to the worldmap.
+car_give_gas|Gives the car a given amount (amount) of gas.
+critter_add_trait|Adds a particular trait of a given type to a particular critter (who).  Possible traits under the SPECIAL system are limited to:      Perks      Traits      Object-instance information (such as team #’s, ai-packet #’s, etc.)
+critter_damage|Inflicts damage on a critter of a given amount, killing it if necessary.
+critter_heal|Heals a critter for a given amount up to maximum.
+critter_inven_obj|Returns a pointer to an object that is in a given spot (NULL if none).  The appropriate values for where are:  INVEN_TYPE_WORN, INVEN_TYPE_RIGHT_HAND, and INVEN_TYPE_LEFT_HAND.
+critter_rm_trait|Removes a particular trait (trait) of a given type (trait_type) from a particular critter (who).  (See critter_add_trait.)
+critter_skill_level|Returns the current skill level of a particular object’s skill.
+critter_state|Returns the state of a given critter object (from combat data), used to determine if a critter is dead, unconscious, etc..
+cur_town|Returns the index # of the current town, to be matched with the define-constant in define.h.
+days_since_visited|Returns the number of days since this map was last visited, or (-1) if it has never been visited before.
+dialogue_reaction|Set up a reaction animation in the dialogue system.
+dialogue_system_enter|Tells the dialog system that this object is requesting the talk system.  This is used when the script wants to start dialog instead of waiting for the player to initiate it.  The script will be called back in its talk_proc section.
+do_check|Do a check/test-roll versus one of the various basic traits (strength, perception, etc.).
+drop_obj|Causes the critter self-object to remove a given object (obj) from it’s inventory and place it on the ground at its hex.  This animates the self_obj.
+drug_influence|Returns True if a given critter object is currently under any drug influences, False otherwise
+elevation|Returns the current elevation being displayed.
+end_dialogue|Terminates the dialogue system.
+explosion|Sets up an explosion at a given tile number on a given elevation, that will cause damage in a radius.
+fixed_param|Returns the value of the scripts fixed parameter.  This is used with add_timer_event, for instance, to pass the info parameter back to the script
+goto_xy|It seems that this command is not working.(but i don't know for 100%)
+has_skill|Determines if a critter (who) ‘knows’ a particular skill.  Actually, this currently returns the level of the skill, which will include defaults.
+inven_count|Returns the count of how many inventory slots are filled on a given object.
+inven_ptr|Returns a pointer to the object in slot # (slotNum) in a given object.
+inven_unwield|Attempts to cause a critter to unwield any wielded weapons/items.  If animations are currently disabled, it will just instantly change the art.
+obj_item_subtype|Returns item subtype
