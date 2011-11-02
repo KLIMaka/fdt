@@ -1,13 +1,12 @@
 package ssl.editors.proto.sections;
 
-import java.util.Map;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -17,8 +16,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import ssl.SslPlugin;
-import ssl.editors.frm.FID;
-import ssl.editors.frm.FRMPanel;
 import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.accessor.BasicAccessor;
@@ -26,12 +23,10 @@ import ssl.editors.proto.accessor.MaskShiftAccessor;
 import ssl.editors.proto.accessor.OffsetAccessor;
 import ssl.editors.proto.accessor.ProtoControlAdapter;
 import ssl.editors.proto.accessor.ZeroAddAccessor;
-import fdk.lst.IEntry;
 import fdk.lst.LST;
 import fdk.msg.MSG;
 import fdk.msg.MsgEntry;
 import fdk.proto.PRO;
-import fdk.proto.PRO.Type;
 import fdk.proto.Prototype;
 
 public class Weapon extends Composite implements IFillSection {
@@ -45,12 +40,12 @@ public class Weapon extends Composite implements IFillSection {
     private Text                m_ap2;
     private Text                m_rounds;
     private Text                m_crit;
-    private FRMPanel            m_ammo;
     private Combo               m_anim;
     private Combo               m_dmgt;
     private Combo               m_perk;
     private Combo               m_caliber;
     private Text                m_maxammo;
+    private Button              m_ammo;
     private Text                m_mins;
     private LST                 m_itm_lst;
     private Combo               m_at1;
@@ -172,12 +167,9 @@ public class Weapon extends Composite implements IFillSection {
         label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 4, 1));
         m_toolkit.adapt(label, true, true);
 
-        m_ammo = new FRMPanel(this, m_project, FID.ITEMS);
-        GridData gd_ammo = new GridData(SWT.FILL, SWT.FILL, true, false, 2, 2);
-        gd_ammo.heightHint = 100;
-        m_ammo.setLayoutData(gd_ammo);
-        m_toolkit.adapt(m_ammo);
-        m_toolkit.paintBordersFor(m_ammo);
+        Label label_3 = new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
+        label_3.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));
+        m_toolkit.adapt(label_3, true, true);
 
         Composite composite = new Composite(this, SWT.NONE);
         GridLayout gl_composite = new GridLayout(4, false);
@@ -253,26 +245,20 @@ public class Weapon extends Composite implements IFillSection {
         m_toolkit.paintBordersFor(m_proj);
         m_protoAdapter.adopt(m_proj, new ZeroAddAccessor("projFID", 0x05000000));
 
+        Label lblAmmo = new Label(this, SWT.NONE);
+        lblAmmo.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, false, false, 1, 1));
+        m_toolkit.adapt(lblAmmo, true, true);
+        lblAmmo.setText("Ammo");
+
+        m_ammo = m_toolkit.createButton(this, "", SWT.NONE);
+        m_ammo.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false, 1, 1));
+        m_protoAdapter.adoptPIDSelector(m_ammo, new BasicAccessor("ammoPID"), PRO.ITEM, 4);
+
     }
 
     @Override
     public void fill(Ref<Prototype> proto, IProject proj) throws Exception {
-        Map<String, Integer> fields = proto.get().getFields();
-
         m_protoAdapter.fill();
-
-        m_ammo.resetImage();
-        if ((Integer) fields.get("ammoPID") != -1) {
-            int idx = (Integer) fields.get("ammoPID");
-            idx &= 0x0000ffff;
-            IEntry ent = m_itm_lst.get(idx - 1);
-            if (ent != null) {
-                Prototype apro = new Prototype(SslPlugin.getFile(proj, PRO.getProDir(Type.ITEM) + ent.getValue())
-                        .getContents());
-                m_ammo.setFID(apro.getFields().get("invFID"));
-            }
-        }
-
     }
 
     @Override
@@ -294,7 +280,7 @@ public class Weapon extends Composite implements IFillSection {
         for (int i = 300; i <= 318; i++)
             m_caliber.add(proto_msg.get(i).getMsg());
 
-        m_itm_lst = SslPlugin.getCachedLST(m_project, PRO.getLst(PRO.Type.ITEM));
+        m_itm_lst = SslPlugin.getCachedLST(m_project, PRO.getLst(PRO.ITEM));
 
         String[] atts = { "Stand", "Throw punch", "Kick leg", "Swing", "Thrust", "Throw", "Single", "Burst",
                 "Continous" };
@@ -303,7 +289,7 @@ public class Weapon extends Composite implements IFillSection {
             m_at2.add(at);
         }
 
-        MSG projMsg = SslPlugin.getCachedMsg(m_project, PRO.getMsg(PRO.Type.MISC));
+        MSG projMsg = SslPlugin.getCachedMsg(m_project, PRO.getMsg(PRO.MISC));
         m_proj.add("None");
         MsgEntry ent;
         int i = 100;

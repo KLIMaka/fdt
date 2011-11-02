@@ -14,7 +14,7 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import ssl.editors.frm.FID;
-import ssl.editors.frm.FRMPanel;
+import ssl.editors.frm.FIDSelectPanel;
 import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.sections.Critter;
@@ -38,7 +38,7 @@ public class CritterSet extends Composite implements IFillSection {
     private ScrolledComposite   m_scrolledComposite;
     private Composite           m_composite_1;
     private CritterFlags        m_critterFlags;
-    private FRMPanel            m_img;
+    private FIDSelectPanel            m_img;
     private CritterDetails      m_critterDetails;
 
     /**
@@ -123,7 +123,7 @@ public class CritterSet extends Composite implements IFillSection {
         m_toolkit.adapt(m_critterDetails);
         m_toolkit.paintBordersFor(m_critterDetails);
 
-        m_img = new FRMPanel(m_composite_1, fact.getProject(), FID.CRITTERS);
+        m_img = new FIDSelectPanel(m_composite_1, fact, "gndFID", FID.CRITTERS);
         m_img.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
         m_toolkit.adapt(m_img);
         m_toolkit.paintBordersFor(m_img);
@@ -151,7 +151,7 @@ public class CritterSet extends Composite implements IFillSection {
         m_critter.fill(proto, proj);
         m_critterFlags.fill(proto, proj);
         m_critterDetails.fill(proto, proj);
-        m_img.setFID(proto.get().getFields().get("gndFID"));
+        m_img.fill();
     }
 
     @Override

@@ -13,7 +13,7 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import ssl.editors.frm.FID;
-import ssl.editors.frm.FRMPanel;
+import ssl.editors.frm.FIDSelectPanel;
 import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.sections.Description;
@@ -24,7 +24,7 @@ public class DefaultSet extends Composite implements IFillSection {
 
     private final FormToolkit m_toolkit = new FormToolkit(Display.getCurrent());
     private Description       m_descr;
-    private FRMPanel          m_img;
+    private FIDSelectPanel          m_img;
 
     /**
      * Create the composite.
@@ -71,7 +71,7 @@ public class DefaultSet extends Composite implements IFillSection {
         xpndblcmpstImage.setClient(composite);
         composite.setLayout(new GridLayout(1, false));
 
-        m_img = new FRMPanel(composite, fact.getProject(), FID.SCENERY);
+        m_img = new FIDSelectPanel(composite, fact, "gndFID", FID.SCENERY);
         GridData gd_img = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
         gd_img.heightHint = 233;
         m_img.setLayoutData(gd_img);
@@ -84,7 +84,7 @@ public class DefaultSet extends Composite implements IFillSection {
     @Override
     public void fill(Ref<Prototype> proto, IProject proj) throws Exception {
         m_descr.fill(proto, proj);
-        m_img.setFID(proto.get().getFields().get("gndFID"));
+        m_img.fill();
     }
 
     @Override

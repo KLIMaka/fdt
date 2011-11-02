@@ -3,9 +3,9 @@ package ssl.editors.frm;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
@@ -25,11 +25,14 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ToolBar;
 
 import ssl.SslPlugin;
+import ssl.editors.proto.ProtoAdaptorsFactory;
+import ssl.editors.proto.accessor.BasicAccessor;
 
 import com.swtdesigner.SWTResourceManager;
 
 import fdk.frm.FRMFrame;
 import fdk.frm.FRMImage;
+import fdk.lst.IEntry;
 
 class MyMouse implements MouseListener, MouseMoveListener {
     private int     x_off  = 0;
@@ -100,32 +103,30 @@ class MyMouse implements MouseListener, MouseMoveListener {
     public void mouseDoubleClick(MouseEvent e) {}
 }
 
-public class FRMPanel extends Composite {
+public class FIDSelectPanel extends Composite {
 
-    private Image          m_images[] = null;
-    private Control        m_canvas;
-    private boolean        m_play     = false;
-    private int            m_frame    = 0;
-    private int            m_side     = 3;
+    private Image                m_images[] = null;
+    private Control              m_canvas;
+    private boolean              m_play     = false;
+    private int                  m_frame    = 0;
+    private int                  m_side     = 3;
 
-    private Action         m_playAction;
-    private ToolBarManager m_mgr;
+    private ToolBarManager       m_mgr;
 
-    private FRMImage       m_frm      = null;
-    private int            m_dx, m_dy;
-    private Action         m_left;
-    private Action         m_right;
-    private PaletteData    m_pal;
+    private FRMImage             m_frm      = null;
+    private int                  m_dx, m_dy;
 
-    private MyMouse        m_mouse    = new MyMouse();
-    private Action         m_center;
-    private int            m_fidType;
-    private IProject       m_proj;
+    private Action               m_playAction;
+    private Action               m_left;
+    private Action               m_right;
+    private Action               m_change;
+    private Action               m_center;
 
-    // private Texture tex;
-    //
-    // private static boolean first = false;
-    // private static GLCanvas share = null;
+    private PaletteData          m_pal;
+    private MyMouse              m_mouse    = new MyMouse();
+    private int                  m_fidType;
+    private ProtoAdaptorsFactory m_fact;
+    private BasicAccessor        m_accessor;
 
     /**
      * Create the composite.
@@ -133,7 +134,7 @@ public class FRMPanel extends Composite {
      * @param parent
      * @param style
      */
-    public FRMPanel(Composite parent, IProject proj, int fidtype) {
+    public FIDSelectPanel(Composite parent, ProtoAdaptorsFactory fact, String field, int fidtype) {
 
         super(parent, SWT.BORDER);
         GridLayout gridLayout = new GridLayout(2, false);
@@ -143,7 +144,8 @@ public class FRMPanel extends Composite {
         setLayout(gridLayout);
 
         m_fidType = fidtype;
-        m_proj = proj;
+        m_fact = fact;
+        m_accessor = new BasicAccessor(field);
 
         createActions();
 
@@ -243,12 +245,12 @@ public class FRMPanel extends Composite {
         m_mgr.update(true);
     }
 
-    public void setFID(int fid) {
+    public void fill() {
 
-        InputStream frmStream = FID.getByFID(m_proj, fid);
+        InputStream frmStream = FID.getByFID(m_fact.getProject(), m_accessor.get(m_fact.getPro()));
         try {
             m_frm = new FRMImage(frmStream);
-            m_pal = SslPlugin.getStdPal(m_proj);
+            m_pal = SslPlugin.getStdPal(m_fact.getProject());
         } catch (IOException e) {
             e.printStackTrace();
             m_frm = null;
@@ -267,6 +269,7 @@ public class FRMPanel extends Composite {
             m_mgr.add(m_right);
         }
         m_mgr.add(m_center);
+        m_mgr.add(m_change);
         m_center.run();
         m_mgr.update(true);
     }
@@ -280,6 +283,10 @@ public class FRMPanel extends Composite {
         }
         m_frame = 0;
         m_dx = m_dy = 0;
+    }
+
+    public void setField(String field) {
+        m_accessor = new BasicAccessor(field);
     }
 
     protected void createActions() {
@@ -334,6 +341,24 @@ public class FRMPanel extends Composite {
             };
         };
         m_center.setImageDescriptor(SslPlugin.getImageDescriptor("icons/link_to_editor.gif"));
+
+        m_change = new Action() {
+            @Override
+            public void run() {
+                FidSelector fidselect = new FidSelector(getShell(), m_fact.getProject(), m_fidType);
+                fidselect.create();
+                if (fidselect.open() == Window.OK && fidselect.getSelection() != null) {
+                    IEntry ent = (IEntry) fidselect.getSelection();
+                    int fid = (ent.getIndex() - 1) | (m_fidType << 24);
+                    if (m_accessor.get(m_fact.getPro()) != fid) {
+                        m_accessor.set(m_fact.getPro(), fid);
+                        m_fact.getChangeListener().change();
+                        fill();
+                    }
+                }
+            }
+        };
+        m_change.setImageDescriptor(SslPlugin.getImageDescriptor("icons/add.gif"));
 
     }
 

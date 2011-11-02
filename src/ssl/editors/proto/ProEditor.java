@@ -49,15 +49,14 @@ import fdk.lst.BasicEntryMaker.Entry;
 import fdk.lst.LST;
 import fdk.msg.MSG;
 import fdk.proto.PRO;
-import fdk.proto.PRO.Type;
 import fdk.proto.Prototype;
 
 public class ProEditor extends FormPage {
     private class ChangeTypeAction extends Action {
 
-        private Type m_changeType;
+        private int m_changeType;
 
-        public ChangeTypeAction(String name, PRO.Type type) {
+        public ChangeTypeAction(String name, int type) {
             super(name, AS_RADIO_BUTTON);
             m_changeType = type;
         }
@@ -72,7 +71,7 @@ public class ProEditor extends FormPage {
     private Ref<MSG>       m_msg      = new Ref<MSG>();
     private Ref<Prototype> m_proto    = new Ref<Prototype>();
     private IProject       m_project;
-    private PRO.Type       m_type;
+    private int            m_type;
     private String         m_protoFileName;
     private Entry          m_selectedEntry;
     private FilteredTree   m_filteredTree;
@@ -90,7 +89,7 @@ public class ProEditor extends FormPage {
         super(id, title);
     }
 
-    private void changeType(PRO.Type type) {
+    private void changeType(int type) {
         try {
             m_type = type;
             Charset cs;
@@ -235,11 +234,11 @@ public class ProEditor extends FormPage {
         ToolBarManager toolBarManager = new ToolBarManager(SWT.FLAT);
         ToolBar toolbar = toolBarManager.createControl(sctnProtoList);
 
-        toolBarManager.add(new ChangeTypeAction("Critters", Type.CRITTER));
-        toolBarManager.add(new ChangeTypeAction("Scenery", Type.SCENERY));
-        toolBarManager.add(new ChangeTypeAction("Items", Type.ITEM));
-        toolBarManager.add(new ChangeTypeAction("Misc", Type.MISC));
-        toolBarManager.add(new ChangeTypeAction("Walls", Type.WALL));
+        toolBarManager.add(new ChangeTypeAction("Critters", PRO.CRITTER));
+        toolBarManager.add(new ChangeTypeAction("Scenery", PRO.SCENERY));
+        toolBarManager.add(new ChangeTypeAction("Items", PRO.ITEM));
+        toolBarManager.add(new ChangeTypeAction("Misc", PRO.MISC));
+        toolBarManager.add(new ChangeTypeAction("Walls", PRO.WALL));
 
         toolBarManager.update(true);
         sctnProtoList.setTextClient(toolbar);

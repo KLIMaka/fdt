@@ -13,21 +13,23 @@ import org.eclipse.swt.widgets.Shell;
 
 import ssl.SslPlugin;
 
-public class FidSelector extends Dialog {
+public class PidSelector extends Dialog {
 
-    private FRMList  m_list;
-    private int      m_type;
     private IProject m_proj;
+    private int      m_type;
+    private FRMList  m_list;
+    private int      m_filter;
 
     /**
      * Create the dialog.
      * 
      * @param parentShell
      */
-    public FidSelector(Shell parentShell, IProject proj, int type) {
+    public PidSelector(Shell parentShell, IProject proj, int type, int filter) {
         super(parentShell);
         m_proj = proj;
         m_type = type;
+        m_filter = filter;
     }
 
     @Override
@@ -54,11 +56,16 @@ public class FidSelector extends Dialog {
         m_list.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
         m_list.setCellSize(100, 100);
         m_list.setPal(SslPlugin.getStdPal(m_proj));
-        FrmProvider provider = new FrmProvider(m_proj);
+        ProtoProvider provider;
+        if (m_filter == -1) {
+            provider = new ProtoProvider(m_proj);
+        } else {
+            provider = new FilteredProtoProvider(m_proj, m_filter);
+        }
         m_list.setLabelProvider(provider);
         m_list.setContentProvider(provider);
         m_list.setInput(m_type);
-        getShell().setText("Select FID");
+        getShell().setText("Select PID");
 
         return container;
     }

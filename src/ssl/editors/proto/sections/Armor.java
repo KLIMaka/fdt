@@ -1,7 +1,5 @@
 package ssl.editors.proto.sections;
 
-import java.util.Map;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.SWT;
@@ -24,7 +22,7 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import ssl.SslPlugin;
 import ssl.editors.frm.FID;
-import ssl.editors.frm.FRMPanel;
+import ssl.editors.frm.FIDSelectPanel;
 import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.accessor.BasicAccessor;
@@ -52,7 +50,7 @@ public class Armor extends Composite implements IFillSection {
     private Text                m_DREMP;
     private Text                m_DRExpl;
     private Combo               m_perk;
-    private FRMPanel            m_view;
+    private FIDSelectPanel            m_view;
     private Button              m_male;
     private Button              m_female;
     private Label               m_label;
@@ -269,7 +267,7 @@ public class Armor extends Composite implements IFillSection {
         m_toolkit.adapt(m_female, true, true);
         m_female.setText("Female");
 
-        m_view = new FRMPanel(composite_2, m_proj, FID.CRITTERS);
+        m_view = new FIDSelectPanel(composite_2, fact, "maleFID", FID.CRITTERS);
         m_view.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.FILL, 1, 2));
         m_toolkit.adapt(m_view);
         m_toolkit.paintBordersFor(m_view);
@@ -278,14 +276,16 @@ public class Armor extends Composite implements IFillSection {
 
     public void fill(Ref<Prototype> proto, IProject proj) throws CoreException {
         m_protoAdaptor.fill();
-        Map<String, Integer> fields = proto.get().getFields();
-        m_frames[0] = fields.get("maleFID");
-        m_frames[1] = fields.get("femaleFID");
         updateFrame();
     }
 
     private void updateFrame() throws CoreException {
-        m_view.setFID(m_frames[m_frame]);
+        if (m_frame == 0) {
+            m_view.setField("maleFID");
+        } else {
+            m_view.setField("maleFID");
+        }
+        m_view.fill();
     }
 
     @Override

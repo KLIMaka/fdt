@@ -1,7 +1,5 @@
 package ssl.editors.proto.sections;
 
-import java.util.Map;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.SWT;
@@ -18,7 +16,7 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import ssl.editors.frm.FID;
-import ssl.editors.frm.FRMPanel;
+import ssl.editors.frm.FIDSelectPanel;
 import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.accessor.BasicAccessor;
@@ -31,11 +29,10 @@ public class ItemGeneral extends Composite {
     private Text                m_size;
     private Text                m_weight;
     private Text                m_cost;
-    private FRMPanel            m_inv;
-    private FRMPanel            m_gnd;
+    private FIDSelectPanel            m_inv;
+    private FIDSelectPanel            m_gnd;
 
     private ProtoControlAdapter m_protoAdaptor;
-    private IProject            m_proj;
 
     /**
      * Create the composite.
@@ -48,7 +45,6 @@ public class ItemGeneral extends Composite {
     public ItemGeneral(Composite parent, ProtoAdaptorsFactory fact) {
         super(parent, SWT.NONE);
         m_protoAdaptor = fact.create();
-        m_proj = fact.getProject();
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();
@@ -97,12 +93,12 @@ public class ItemGeneral extends Composite {
         composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 6, 1));
         m_toolkit.paintBordersFor(composite);
 
-        m_gnd = new FRMPanel(composite, m_proj, FID.ITEMS);
+        m_gnd = new FIDSelectPanel(composite, fact, "gndFID", FID.ITEMS);
         m_gnd.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.FILL_GRAB, 1, 1));
         m_toolkit.adapt(m_gnd);
         m_toolkit.paintBordersFor(m_gnd);
 
-        m_inv = new FRMPanel(composite, m_proj, FID.INVEN);
+        m_inv = new FIDSelectPanel(composite, fact, "invFID", FID.INVEN);
         TableWrapData twd_m_inv = new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.FILL_GRAB, 1, 1);
         twd_m_inv.heightHint = 148;
         m_inv.setLayoutData(twd_m_inv);
@@ -112,10 +108,8 @@ public class ItemGeneral extends Composite {
     }
 
     public void fill(Ref<Prototype> proto, IProject proj) throws CoreException {
-        Map<String, Integer> fields = proto.get().getFields();
-
         m_protoAdaptor.fill();
-        m_gnd.setFID(fields.get("gndFID"));
-        m_inv.setFID(fields.get("invFID"));
+        m_gnd.fill();
+        m_inv.fill();
     }
 }

@@ -13,7 +13,6 @@ import fdk.lst.IEntry;
 import fdk.lst.LST;
 import fdk.msg.MSG;
 import fdk.proto.PRO;
-import fdk.proto.PRO.Type;
 import fdk.proto.Prototype;
 
 public class ProtoProvider implements IFrmListContentProvider, IFrmListLabelProvider {
@@ -23,8 +22,12 @@ public class ProtoProvider implements IFrmListContentProvider, IFrmListLabelProv
         public FRMFrame frame;
     }
 
-    private IProject                m_proj;
-    private Type                    m_type;
+    private static class NoneEntry {};
+
+    protected static NoneEntry      noneEnt = new NoneEntry();
+
+    protected IProject              m_proj;
+    protected int                   m_type;
     private Map<Object, ProtoEntry> m_cache = new HashMap<Object, ProtoProvider.ProtoEntry>();
 
     public ProtoProvider(IProject proj) {
@@ -36,20 +39,27 @@ public class ProtoProvider implements IFrmListContentProvider, IFrmListLabelProv
         if (ent == null) {
             try {
                 ent = new ProtoEntry();
-                IEntry lstent = (IEntry) o;
-                Prototype pro = new Prototype(SslPlugin.getFile(m_proj, PRO.getProDir(m_type) + lstent.getValue())
-                        .getContents());
-                int id = (pro.getFields().get("protoID") & 0x0000ffff) * 100;
 
-                int fid = pro.getFields().get(
-                        m_type == Type.ITEM && pro.getFields().get("objSubType") != 1 ? "invFID" : "gndFID");
-                MSG msg = SslPlugin.getCachedMsg(m_proj, PRO.getMsg(m_type));
-                if (msg.get(id) != null) {
-                    ent.name = msg.get(id).getMsg();
+                if (o == noneEnt) {
+                    ent.name = "None";
+                    ent.frame = SslPlugin.getFRM(m_proj, "art/items/reserved.frm");
                 } else {
-                    ent.name = "";
+
+                    IEntry lstent = (IEntry) o;
+                    Prototype pro = new Prototype(SslPlugin.getFile(m_proj, PRO.getProDir(m_type) + lstent.getValue())
+                            .getContents());
+                    int id = (pro.getFields().get("protoID") & 0x0000ffff) * 100;
+
+                    int fid = pro.getFields().get(
+                            m_type == PRO.ITEM && pro.getFields().get("objSubType") != 1 ? "invFID" : "gndFID");
+                    MSG msg = SslPlugin.getCachedMsg(m_proj, PRO.getMsg(m_type));
+                    if (msg.get(id) != null) {
+                        ent.name = msg.get(id).getMsg();
+                    } else {
+                        ent.name = "";
+                    }
+                    ent.frame = SslPlugin.getFRM(m_proj, FID.getFileNameByFID(m_proj, fid));
                 }
-                ent.frame = SslPlugin.getFRM(m_proj, FID.getFileNameByFID(m_proj, fid));
                 m_cache.put(o, ent);
 
             } catch (Exception e) {
@@ -72,7 +82,7 @@ public class ProtoProvider implements IFrmListContentProvider, IFrmListLabelProv
 
     @Override
     public void inputChanged(FRMList list, Object newInput, Object oldInput) {
-        m_type = (Type) newInput;
+        m_type = (Integer) newInput;
     }
 
     @Override
@@ -80,7 +90,10 @@ public class ProtoProvider implements IFrmListContentProvider, IFrmListLabelProv
         try {
             Charset cs = Charset.forName(m_proj.getDefaultCharset());
             LST lst = new LST(SslPlugin.getFile(m_proj, PRO.getLst(m_type)).getContents(), cs, new BasicEntryMaker());
-            return lst.toArray();
+            Object[] ret = new Object[lst.size() + 1];
+            ret[0] = noneEnt;
+            System.arraycopy(lst.toArray(), 0, ret, 1, lst.size());
+            return ret;
         } catch (Exception e) {
             e.printStackTrace();
         }

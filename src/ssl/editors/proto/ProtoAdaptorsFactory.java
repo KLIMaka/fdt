@@ -21,7 +21,7 @@ public class ProtoAdaptorsFactory {
     }
 
     public ProtoControlAdapter create() {
-        ProtoControlAdapter adapter = new ProtoControlAdapter(m_pro, m_msg, m_cl);
+        ProtoControlAdapter adapter = new ProtoControlAdapter(m_proj, m_pro, m_msg, m_cl);
         return adapter;
     }
 

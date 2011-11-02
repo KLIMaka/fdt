@@ -19,7 +19,7 @@ public class FRMViewer extends EditorPart {
 
     public static final String ID = "ssl.editors.frm.FRMViewer"; //$NON-NLS-1$
 
-    private FRMPanel           m_panel;
+    private FIDSelectPanel     m_panel;
 
     private FRMList            m_panel1;
 
@@ -65,7 +65,7 @@ public class FRMViewer extends EditorPart {
         ProtoProvider provider = new ProtoProvider(proj);
         m_panel1.setContentProvider(provider);
         m_panel1.setLabelProvider(provider);
-        m_panel1.setInput(PRO.Type.SCENERY);
+        m_panel1.setInput(PRO.SCENERY);
 
     }
 

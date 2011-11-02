@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -12,6 +14,7 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
@@ -21,10 +24,14 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
+import ssl.SslPlugin;
+import ssl.editors.frm.PidSelector;
 import ssl.editors.proto.IChangeListener;
 import ssl.editors.proto.Ref;
+import fdk.lst.IEntry;
 import fdk.msg.MSG;
 import fdk.msg.MsgEntry;
+import fdk.proto.PRO;
 import fdk.proto.Prototype;
 
 public class ProtoControlAdapter {
@@ -33,12 +40,15 @@ public class ProtoControlAdapter {
         public int verify(String str) throws Exception;
     }
 
+    private IProject            m_proj;
     private Ref<Prototype>      m_proto;
     private Ref<MSG>            m_msg;
-    private ArrayList<Runnable> m_fillers = new ArrayList<Runnable>();
     private IChangeListener     m_changeListener;
 
-    public ProtoControlAdapter(Ref<Prototype> proto, Ref<MSG> msg, IChangeListener cl) {
+    private ArrayList<Runnable> m_fillers = new ArrayList<Runnable>();
+
+    public ProtoControlAdapter(IProject proj, Ref<Prototype> proto, Ref<MSG> msg, IChangeListener cl) {
+        m_proj = proj;
         m_proto = proto;
         m_msg = msg;
         m_changeListener = cl;
@@ -86,6 +96,49 @@ public class ProtoControlAdapter {
             @Override
             public int verify(String str) {
                 return Integer.valueOf(str);
+            }
+        });
+    }
+
+    public void adoptPIDSelector(final Button btn, final IProtoAccessor ac, final int pidType, final int filter) {
+        final Runnable filler = new Runnable() {
+            @Override
+            public void run() {
+                int pid = ac.get(m_proto);
+                if (pid == -1) {
+                    btn.setText("None");
+                } else {
+                    int type = (pid >> 24) & 0x0f;
+                    int id = pid & 0x0000ffff;
+                    MSG msg = SslPlugin.getCachedMsg(m_proj, PRO.getMsg(type));
+                    if (msg.get(id * 100) == null) {
+                        btn.setText("<empty>");
+                    } else {
+                        btn.setText(msg.get(id * 100).getMsg());
+                    }
+                }
+            }
+        };
+        m_fillers.add(filler);
+
+        btn.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                PidSelector pidselect = new PidSelector(btn.getShell(), m_proj, pidType, filter);
+                pidselect.create();
+                if (pidselect.open() == Window.OK && pidselect.getSelection() != null) {
+                    int pid;
+                    if (!(pidselect.getSelection() instanceof IEntry)) {
+                        pid = -1;
+                    } else {
+                        pid = (((IEntry) pidselect.getSelection()).getIndex()) | (pidType << 24);
+                    }
+                    if (pid != ac.get(m_proto)) {
+                        ac.set(m_proto, pid);
+                        filler.run();
+                        m_changeListener.change();
+                    }
+                }
             }
         });
     }
