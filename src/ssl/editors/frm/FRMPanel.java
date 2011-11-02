@@ -13,6 +13,7 @@ import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Cursor;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.PaletteData;
 import org.eclipse.swt.graphics.Point;
@@ -162,13 +163,19 @@ public class FRMPanel extends Composite {
         m_canvas.addPaintListener(new PaintListener() {
             @Override
             public void paintControl(PaintEvent e) {
+                final Image backBuff = new Image(getDisplay(), m_canvas.getBounds());
+                final GC backGC = new GC(backBuff);
+
+                backGC.setBackground(m_canvas.getBackground());
+                backGC.fillRectangle(0, 0, m_canvas.getBounds().width, m_canvas.getBounds().height);
+
                 if (m_images != null) {
                     if (m_images.length == 1) {
                         Point center = m_canvas.getSize();
                         Image img = m_images[m_frame];
                         int x = (center.x - img.getBounds().width) / 2 + m_mouse.getX_off();
                         int y = (center.y - img.getBounds().height) / 2 + m_mouse.getY_off();
-                        e.gc.drawImage(img, x, y);
+                        backGC.drawImage(img, x, y);
 
                     } else {
                         Point center = m_canvas.getSize();
@@ -176,9 +183,11 @@ public class FRMPanel extends Composite {
                         Image img = m_images[m_frame];
                         center.x = center.x / 2 - img.getBounds().width / 2 + m_dx + m_mouse.getX_off();
                         center.y = center.y / 2 - img.getBounds().height + m_dy + m_mouse.getY_off();
-                        e.gc.drawImage(img, center.x, center.y);
+                        backGC.drawImage(img, center.x, center.y);
                     }
                 }
+
+                e.gc.drawImage(backBuff, 0, 0);
             }
         });
 
