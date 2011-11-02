@@ -1,6 +1,8 @@
 package ssl.editors.frm;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
@@ -66,7 +68,7 @@ public class FRMList extends Composite {
         gridLayout.horizontalSpacing = 0;
         setLayout(gridLayout);
 
-        m_canvas = new Canvas(this, SWT.NONE);
+        m_canvas = new Canvas(this, SWT.NO_BACKGROUND);
         m_canvas.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
         m_canvas.addControlListener(new ControlAdapter() {
             @Override
@@ -78,10 +80,18 @@ public class FRMList extends Composite {
         m_canvas.addPaintListener(new PaintListener() {
             @Override
             public void paintControl(PaintEvent e) {
+                final Color bg = new Color(getDisplay(), 90, 90, 90);
+                final Image image = new Image(getDisplay(), m_canvas.getBounds());
+                final GC gcImage = new GC(image);
+
+                gcImage.setBackground(bg);
+                gcImage.fillRectangle(0, 0, m_canvas.getSize().x, m_canvas.getSize().y);
+
                 for (int i = 0; i < m_cachedImages.size(); i++) {
                     boolean selected = m_elements[m_topLeftCell + i] == m_selected ? true : false;
-                    redrawCell(i, e.gc, selected);
+                    redrawCell(i, gcImage, selected);
                 }
+                e.gc.drawImage(image, 0, 0);
             }
         });
 
@@ -183,10 +193,23 @@ public class FRMList extends Composite {
         m_contentProvider = cp;
     }
 
+    private void preloadImages(final Object[] lst) {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                for (Object o : lst) {
+                    m_labelProvider.getImage(o);
+                }
+            }
+        }, 0);
+    }
+
     public void setInput(Object input) {
         m_input = input;
         m_contentProvider.inputChanged(this, input, m_input);
         m_elements = m_contentProvider.getElements();
+        preloadImages(m_elements);
         recalcSize();
     }
 
@@ -279,6 +302,7 @@ public class FRMList extends Composite {
     }
 
     protected void cacheImages(int size) {
+
         if (m_cachedImages != null) {
             for (Image img : m_cachedImages) {
                 img.dispose();

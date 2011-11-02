@@ -42,7 +42,7 @@ import fdk.msg.MSG;
 public class SslPlugin extends AbstractUIPlugin {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "SSL";
+    public static final String PLUGIN_ID = "FDT";
 
     // The shared instance
     private static SslPlugin   plugin;
