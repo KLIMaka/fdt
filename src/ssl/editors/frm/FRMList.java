@@ -52,6 +52,7 @@ public class FRMList extends Composite {
     private Object                        m_selected;
 
     private ArrayList<ISelectionListener> m_selectionListeners = new ArrayList<ISelectionListener>();
+    private Timer                         m_preloader          = new Timer();
 
     /**
      * Create the composite.
@@ -182,6 +183,9 @@ public class FRMList extends Composite {
         for (Image img : m_cachedImages) {
             img.dispose();
         }
+        try {
+            m_preloader.cancel();
+        } catch (Exception e) {}
         super.dispose();
     }
 
@@ -194,8 +198,9 @@ public class FRMList extends Composite {
     }
 
     private void preloadImages(final Object[] lst) {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        m_preloader.cancel();
+        m_preloader = new Timer();
+        m_preloader.schedule(new TimerTask() {
             @Override
             public void run() {
                 for (Object o : lst) {

@@ -65,7 +65,7 @@ public class FRMViewer extends EditorPart {
         ProtoProvider provider = new ProtoProvider(proj);
         m_panel1.setContentProvider(provider);
         m_panel1.setLabelProvider(provider);
-        m_panel1.setInput(PRO.Type.TILE);
+        m_panel1.setInput(PRO.Type.SCENERY);
 
     }
 
