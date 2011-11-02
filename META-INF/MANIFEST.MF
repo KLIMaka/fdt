@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: FDT
 Bundle-SymbolicName: FDT;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: ssl.SslPlugin
+Bundle-Activator: fdt.FDT
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.jface.text,
@@ -23,4 +23,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: bin/,
  jogl.jar,
  flib.jar
-Export-Package: ssl
+Export-Package: fdt

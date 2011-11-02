@@ -9,11 +9,11 @@
             extensions="ssl"
             icon="icons/sample.gif"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            class="ssl.editors.ssl.SSLEditor"
+            class="fdt.editors.ssl.SSLEditor"
             id="ssl.editors.SSLEditor">
       </editor>
       <editor
-            class="ssl.editors.scriptslist.ScriptsList"
+            class="fdt.editors.scriptslist.ScriptsList"
             default="false"
             filenames="script.lst"
             icon="icons/methpro_obj.gif"
@@ -21,7 +21,7 @@
             name="Scripts List Editor">
       </editor>
       <editor
-            class="ssl.editors.ssl.rix.RIXViewer"
+            class="fdt.editors.rix.RIXViewer"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             default="false"
             extensions="rix"
@@ -30,7 +30,7 @@
             name="RIX Viewer">
       </editor>
       <editor
-            class="ssl.editors.frm.FRMViewer"
+            class="fdt.editors.frm.FRMViewer"
             extensions="frm"
             id="ssl.editors.frm.FRMViewer"
             name="FRM Viewer">
@@ -41,7 +41,7 @@
       <filesystem
             scheme="dat">
          <run
-               class="ssl.fs.DatFS">
+               class="fdt.fs.DatFS">
          </run>
       </filesystem>
    </extension>
@@ -52,7 +52,7 @@
       <builder
             hasNature="true">
          <run
-               class="ssl.builder.SSLBuilder">
+               class="fdt.builder.SSLBuilder">
          </run>
       </builder>
    </extension>
@@ -62,7 +62,7 @@
          point="org.eclipse.core.resources.natures">
       <runtime>
          <run
-               class="ssl.builder.SSLNature">
+               class="fdt.builder.SSLNature">
          </run>
       </runtime>
       <builder
@@ -84,7 +84,7 @@
          point="org.eclipse.ui.newWizards">
       <wizard
             category="SSL.category1"
-            class="ssl.wizards.NewFalloutProjectWizard"
+            class="fdt.wizards.NewFalloutProjectWizard"
             finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
             icon="icons/sample.gif"
             id="SSL.projectWizard"
@@ -97,7 +97,7 @@
       </category>
       <wizard
             category="SSL.category1"
-            class="ssl.wizards.NewScriptWizard"
+            class="fdt.wizards.NewScriptWizard"
             icon="icons/add.gif"
             id="SSL.scriptWizard"
             name="New script"
@@ -107,7 +107,7 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="ssl.preferences.FalloutPreferencePage"
+            class="fdt.preferences.FalloutPreferencePage"
             id="ssl.preferences.FalloutPreferencePage"
             name="Fallout">
       </page>
@@ -115,13 +115,13 @@
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="ssl.preferences.PreferenceInitializer">
+            class="fdt.preferences.PreferenceInitializer">
       </initializer>
    </extension>
    <extension
          point="org.eclipse.ui.propertyPages">
       <page
-            class="ssl.properties.FalloutProjectPropertyPage"
+            class="fdt.properties.FalloutProjectPropertyPage"
             id="ssl.properties.falloutPropertyPage"
             name="Fallout Settings"
             nameFilter="*">
@@ -137,9 +137,9 @@
       <objectContribution
             adaptable="true"
             id="SSL.contribution1"
-            objectClass="ssl.adapters.PackedFileAdapter">
+            objectClass="fdt.adapters.PackedFileAdapter">
          <action
-               class="ssl.popup.actions.ExctractAction"
+               class="fdt.popup.actions.ExctractAction"
                icon="icons/export_wiz.gif"
                id="SSL.newAction"
                label="Extract to patches">
@@ -148,21 +148,21 @@
       <objectContribution
             adaptable="true"
             id="SSL.objectContribution1"
-            objectClass="ssl.adapters.ScriptAdapter">
+            objectClass="fdt.adapters.ScriptAdapter">
          <action
-               class="ssl.popup.actions.ShowMsgAction"
+               class="fdt.popup.actions.ShowMsgAction"
                icon="icons/methpro_obj.gif"
                id="SSL.action2"
                label="Show Msg">
          </action>
          <action
-               class="ssl.popup.actions.ShowDisassemblyAction"
+               class="fdt.popup.actions.ShowDisassemblyAction"
                icon="icons/methpub_obj.gif"
                id="SSL.action5"
                label="Show Int">
          </action>
          <action
-               class="ssl.popup.actions.DecompileAction"
+               class="fdt.popup.actions.DecompileAction"
                icon="icons/export_wiz.gif"
                id="SSL.action.decompile"
                label="Decompile">
@@ -173,23 +173,23 @@
          point="org.eclipse.core.runtime.adapters">
       <factory
             adaptableType="org.eclipse.core.resources.IFile"
-            class="ssl.adapters.AdapterFactory">
+            class="fdt.adapters.AdapterFactory">
          <adapter
-               type="ssl.adapters.ScriptAdapter">
+               type="fdt.adapters.ScriptAdapter">
          </adapter>
       </factory>
       <factory
             adaptableType="fdk.lst.IEntry"
-            class="ssl.adapters.AdapterFactory">
+            class="fdt.adapters.AdapterFactory">
          <adapter
-               type="ssl.adapters.ScriptAdapter">
+               type="fdt.adapters.ScriptAdapter">
          </adapter>
       </factory>
       <factory
             adaptableType="org.eclipse.core.resources.IResource"
-            class="ssl.adapters.AdapterFactory">
+            class="fdt.adapters.AdapterFactory">
          <adapter
-               type="ssl.adapters.PackedFileAdapter">
+               type="fdt.adapters.PackedFileAdapter">
          </adapter>
       </factory>
    </extension>
