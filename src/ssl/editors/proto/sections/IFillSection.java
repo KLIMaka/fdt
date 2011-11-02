@@ -9,7 +9,7 @@ import fdk.proto.Prototype;
 public interface IFillSection {
     public void fill(Ref<Prototype> proto, IProject proj) throws Exception;
 
-    public void setup(IProject proj) throws Exception;
+    public void setup() throws Exception;
 
     public Control toControl();
 }

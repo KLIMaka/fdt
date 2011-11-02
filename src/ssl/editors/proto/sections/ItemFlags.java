@@ -13,12 +13,11 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
-import ssl.editors.proto.IChangeListener;
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.accessor.MaskAccessor;
 import ssl.editors.proto.accessor.MaskShiftOffsetValueAccessor;
 import ssl.editors.proto.accessor.ProtoControlAdapter;
-import fdk.msg.MSG;
 import fdk.proto.Prototype;
 
 public class ItemFlags extends Composite {
@@ -74,9 +73,9 @@ public class ItemFlags extends Composite {
      * @param msg
      * @param proto
      */
-    public ItemFlags(Composite parent, int style, Ref<Prototype> proto, Ref<MSG> msg, IChangeListener cl) {
-        super(parent, style);
-        m_protoAdapter = new ProtoControlAdapter(proto, msg, cl);
+    public ItemFlags(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
+        m_protoAdapter = fact.create();
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();

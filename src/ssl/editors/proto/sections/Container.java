@@ -14,12 +14,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import ssl.editors.proto.IChangeListener;
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.accessor.BasicAccessor;
 import ssl.editors.proto.accessor.MaskAccessor;
 import ssl.editors.proto.accessor.ProtoControlAdapter;
-import fdk.msg.MSG;
 import fdk.proto.Prototype;
 
 public class Container extends Composite implements IFillSection {
@@ -40,9 +39,9 @@ public class Container extends Composite implements IFillSection {
      * @param proto
      * @param changeListener
      */
-    public Container(Composite parent, int style, Ref<Prototype> proto, Ref<MSG> msg, IChangeListener changeListener) {
-        super(parent, style);
-        m_protoAdaptor = new ProtoControlAdapter(proto, msg, changeListener);
+    public Container(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
+        m_protoAdaptor = fact.create();
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();
@@ -78,7 +77,7 @@ public class Container extends Composite implements IFillSection {
     }
 
     @Override
-    public void setup(IProject proj) throws Exception {}
+    public void setup() throws Exception {}
 
     @Override
     public Control toControl() {

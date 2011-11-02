@@ -1,6 +1,5 @@
 package ssl.editors.proto.sections;
 
-import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -19,7 +18,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import ssl.SslPlugin;
-import ssl.editors.proto.IChangeListener;
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.accessor.BasicAccessor;
 import ssl.editors.proto.accessor.ProtoControlAdapter;
@@ -38,6 +37,7 @@ public class CritterDetails extends Composite implements IFillSection {
     private Combo               m_dmgt;
 
     private ProtoControlAdapter m_protoAdapter;
+    private IProject            m_proj;
 
     /**
      * Create the composite.
@@ -46,10 +46,10 @@ public class CritterDetails extends Composite implements IFillSection {
      * @param style
      * @throws Exception
      */
-    public CritterDetails(Composite parent, int style, Ref<Prototype> proto, Ref<MSG> msg,
-            IChangeListener changeListener) {
-        super(parent, style);
-        m_protoAdapter = new ProtoControlAdapter(proto, msg, changeListener);
+    public CritterDetails(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
+        m_protoAdapter = fact.create();
+        m_proj = fact.getProject();
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();
@@ -123,16 +123,15 @@ public class CritterDetails extends Composite implements IFillSection {
         return this;
     }
 
-    public void setup(IProject proj) throws Exception {
-        CFG ai_txt = new CFG(SslPlugin.getFile(proj, "data/ai.txt").getContents());
+    public void setup() throws Exception {
+        CFG ai_txt = new CFG(SslPlugin.getFile(m_proj, "data/ai.txt").getContents());
         Map<Integer, String> map = new TreeMap<Integer, String>();
         for (String aipacket : ai_txt.getCategories())
             map.put(Integer.parseInt(ai_txt.get(aipacket, "packet_num").getValue()), aipacket);
         for (int i : map.keySet())
             m_ai.add(map.get(i));
 
-        Charset cs = Charset.forName(proj.getDefaultCharset());
-        MSG proto_msg = new MSG(SslPlugin.getFile(proj, "text/english/game/proto.msg").getContents(), cs);
+        MSG proto_msg = SslPlugin.getCachedMsg(m_proj, "text/english/game/proto.msg");
 
         for (int i = 400; i <= 402; i++)
             m_bodyt.add(proto_msg.get(i).getMsg());

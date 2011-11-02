@@ -1,7 +1,5 @@
 package ssl.editors.proto.sections;
 
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
@@ -25,9 +23,9 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import ssl.SslPlugin;
-import ssl.editors.frm.FRMPanel;
 import ssl.editors.frm.FID;
-import ssl.editors.proto.IChangeListener;
+import ssl.editors.frm.FRMPanel;
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.accessor.BasicAccessor;
 import ssl.editors.proto.accessor.OffsetAccessor;
@@ -75,9 +73,10 @@ public class Armor extends Composite implements IFillSection {
      * @param proto
      * @param changeListener
      */
-    public Armor(Composite parent, int style, Ref<Prototype> proto, Ref<MSG> msg, IChangeListener changeListener) {
-        super(parent, style);
-        m_protoAdaptor = new ProtoControlAdapter(proto, msg, changeListener);
+    public Armor(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
+        m_protoAdaptor = fact.create();
+        m_proj = fact.getProject();
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();
@@ -213,6 +212,7 @@ public class Armor extends Composite implements IFillSection {
         m_label.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP, 1, 3));
         m_toolkit.adapt(m_label, true, true);
 
+        @SuppressWarnings("unused")
         Label lblArmorClass = m_toolkit.createLabel(composite_3, "Armor Class", SWT.NONE);
 
         m_ac = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
@@ -220,12 +220,14 @@ public class Armor extends Composite implements IFillSection {
         m_ac.setText("100");
         m_protoAdaptor.adopt(m_ac, new BasicAccessor("ac"));
 
+        @SuppressWarnings("unused")
         Label label = m_toolkit.createLabel(composite_3, "%", SWT.NONE);
 
         m_label_1 = new Label(composite_2, SWT.SEPARATOR | SWT.VERTICAL);
         m_label_1.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.FILL, 3, 1));
         m_toolkit.adapt(m_label_1, true, true);
 
+        @SuppressWarnings("unused")
         Label lblPerk = m_toolkit.createLabel(composite_2, "Perk", SWT.NONE);
 
         m_perk = new Combo(composite_2, SWT.NONE);
@@ -267,7 +269,7 @@ public class Armor extends Composite implements IFillSection {
         m_toolkit.adapt(m_female, true, true);
         m_female.setText("Female");
 
-        m_view = new FRMPanel(composite_2, SWT.NONE);
+        m_view = new FRMPanel(composite_2, m_proj, FID.CRITTERS);
         m_view.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.FILL, 1, 2));
         m_toolkit.adapt(m_view);
         m_toolkit.paintBordersFor(m_view);
@@ -275,26 +277,20 @@ public class Armor extends Composite implements IFillSection {
     }
 
     public void fill(Ref<Prototype> proto, IProject proj) throws CoreException {
-        m_proj = proj;
-
         m_protoAdaptor.fill();
-
         Map<String, Integer> fields = proto.get().getFields();
         m_frames[0] = fields.get("maleFID");
         m_frames[1] = fields.get("femaleFID");
-
         updateFrame();
     }
 
     private void updateFrame() throws CoreException {
-        InputStream frms = FID.getByFID(m_proj, m_frames[m_frame]);
-        m_view.setImage(frms, SslPlugin.getStdPal(m_proj));
+        m_view.setFID(m_frames[m_frame]);
     }
 
     @Override
-    public void setup(IProject proj) throws Exception {
-        Charset cs = Charset.forName(proj.getDefaultCharset());
-        MSG perk_msg = new MSG(SslPlugin.getFile(proj, "text/english/game/perk.msg").getContents(), cs);
+    public void setup() throws Exception {
+        MSG perk_msg = SslPlugin.getCachedMsg(m_proj, "text/english/game/perk.msg");
 
         m_perk.add("None");
         for (int i = 101; i <= 219; i++)

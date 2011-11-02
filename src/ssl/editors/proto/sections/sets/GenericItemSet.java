@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import ssl.editors.proto.IChangeListener;
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.sections.Ammo;
 import ssl.editors.proto.sections.Armor;
@@ -31,7 +31,6 @@ import ssl.editors.proto.sections.Lighting;
 import ssl.editors.proto.sections.Misk;
 import ssl.editors.proto.sections.Script;
 import ssl.editors.proto.sections.Weapon;
-import fdk.msg.MSG;
 import fdk.proto.Prototype;
 
 public class GenericItemSet extends Composite implements IFillSection {
@@ -50,9 +49,7 @@ public class GenericItemSet extends Composite implements IFillSection {
     private ExpandableComposite       m_expandableComposite;
     private Script                    m_script;
 
-    private Ref<Prototype>            m_proto;
-    private Ref<MSG>                  m_msg;
-    private IChangeListener           m_changeListener;
+    private ProtoAdaptorsFactory      m_fact;
 
     /**
      * Create the composite.
@@ -63,11 +60,9 @@ public class GenericItemSet extends Composite implements IFillSection {
      * @param proto
      * @param cl
      */
-    public GenericItemSet(Composite parent, int style, Ref<Prototype> proto, Ref<MSG> msg, IChangeListener cl) {
-        super(parent, style);
-        m_proto = proto;
-        m_msg = msg;
-        m_changeListener = cl;
+    public GenericItemSet(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
+        m_fact = fact;
 
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
@@ -102,7 +97,7 @@ public class GenericItemSet extends Composite implements IFillSection {
         xpndblcmpstNewExpandablecomposite.setText("Description");
         xpndblcmpstNewExpandablecomposite.setExpanded(true);
 
-        m_descr = new Description(xpndblcmpstNewExpandablecomposite, SWT.NONE, proto, msg, cl);
+        m_descr = new Description(xpndblcmpstNewExpandablecomposite, fact);
         m_toolkit.adapt(m_descr);
         m_toolkit.paintBordersFor(m_descr);
         xpndblcmpstNewExpandablecomposite.setClient(m_descr);
@@ -122,7 +117,7 @@ public class GenericItemSet extends Composite implements IFillSection {
         xpndblcmpstNewExpandablecomposite_2.setText("General");
         xpndblcmpstNewExpandablecomposite_2.setExpanded(true);
 
-        m_itemGeneral = new ItemGeneral(xpndblcmpstNewExpandablecomposite_2, SWT.NONE, proto, msg, cl);
+        m_itemGeneral = new ItemGeneral(xpndblcmpstNewExpandablecomposite_2, fact);
         m_toolkit.adapt(m_itemGeneral);
         m_toolkit.paintBordersFor(m_itemGeneral);
         xpndblcmpstNewExpandablecomposite_2.setClient(m_itemGeneral);
@@ -134,7 +129,7 @@ public class GenericItemSet extends Composite implements IFillSection {
         m_expandableComposite.setText("Script");
         m_expandableComposite.setExpanded(true);
 
-        m_script = new Script(m_expandableComposite, SWT.NONE, proto, msg, cl);
+        m_script = new Script(m_expandableComposite, fact);
         m_toolkit.adapt(m_script);
         m_toolkit.paintBordersFor(m_script);
         m_expandableComposite.setClient(m_script);
@@ -146,7 +141,7 @@ public class GenericItemSet extends Composite implements IFillSection {
         xpndblcmpstNewExpandablecomposite_3.setText("Flags");
         xpndblcmpstNewExpandablecomposite_3.setExpanded(true);
 
-        m_itemFlags = new ItemFlags(xpndblcmpstNewExpandablecomposite_3, SWT.NONE, proto, msg, cl);
+        m_itemFlags = new ItemFlags(xpndblcmpstNewExpandablecomposite_3, fact);
         m_toolkit.adapt(m_itemFlags);
         m_toolkit.paintBordersFor(m_itemFlags);
         xpndblcmpstNewExpandablecomposite_3.setClient(m_itemFlags);
@@ -159,7 +154,7 @@ public class GenericItemSet extends Composite implements IFillSection {
         xpndblcmpstNewExpandablecomposite_1.setText("Lighting");
         xpndblcmpstNewExpandablecomposite_1.setExpanded(true);
 
-        m_lighting = new Lighting(xpndblcmpstNewExpandablecomposite_1, SWT.NONE, proto, msg, cl);
+        m_lighting = new Lighting(xpndblcmpstNewExpandablecomposite_1, fact);
         m_toolkit.adapt(m_lighting);
         m_toolkit.paintBordersFor(m_lighting);
         xpndblcmpstNewExpandablecomposite_1.setClient(m_lighting);
@@ -219,16 +214,16 @@ public class GenericItemSet extends Composite implements IFillSection {
     }
 
     @Override
-    public void setup(IProject proj) throws Exception {
-        add(new Armor(m_details, SWT.NONE, m_proto, m_msg, m_changeListener), "armor").setup(proj);
-        add(new Container(m_details, SWT.NONE, m_proto, m_msg, m_changeListener), "container").setup(proj);
-        add(new Drugs(m_details, SWT.NONE, m_proto, m_msg, m_changeListener), "drugs").setup(proj);
-        add(new Weapon(m_details, SWT.NONE, m_proto, m_msg, m_changeListener), "weapon").setup(proj);
-        add(new Ammo(m_details, SWT.NONE, m_proto, m_msg, m_changeListener), "ammo").setup(proj);
-        add(new Misk(m_details, SWT.NONE), "misk").setup(proj);
-        add(new Key(m_details, SWT.NONE), "key").setup(proj);
+    public void setup() throws Exception {
+        add(new Armor(m_details, m_fact), "armor").setup();
+        add(new Container(m_details, m_fact), "container").setup();
+        add(new Drugs(m_details, m_fact), "drugs").setup();
+        add(new Weapon(m_details, m_fact), "weapon").setup();
+        add(new Ammo(m_details, m_fact), "ammo").setup();
+        add(new Misk(m_details, m_fact), "misk").setup();
+        add(new Key(m_details, m_fact), "key").setup();
 
-        m_script.setup(proj);
+        m_script.setup();
     }
 
     @Override

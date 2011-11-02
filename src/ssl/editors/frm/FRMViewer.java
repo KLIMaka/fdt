@@ -57,7 +57,7 @@ public class FRMViewer extends EditorPart {
         // e.printStackTrace();
         // }
 
-        m_panel1 = new FRMList(container, SWT.NONE);
+        m_panel1 = new FRMList(container);
         m_panel1.setCellSize(100, 100);
         m_panel1.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
         IProject proj = ((FileEditorInput) getEditorInput()).getFile().getProject();

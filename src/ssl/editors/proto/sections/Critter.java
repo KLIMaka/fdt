@@ -1,7 +1,6 @@
 package ssl.editors.proto.sections;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
@@ -34,12 +33,14 @@ import ssl.editors.proto.CategoryParser;
 import ssl.editors.proto.CategoryParser.Category;
 import ssl.editors.proto.CategoryParser.Field;
 import ssl.editors.proto.IChangeListener;
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import fdk.msg.MSG;
 import fdk.msg.WrongMsgEncoding;
 import fdk.proto.Prototype;
 
 public class Critter extends Composite implements IFillSection {
+
     private static class StatContentProvider implements ITreeContentProvider {
         private Category m_cat;
 
@@ -181,6 +182,7 @@ public class Critter extends Composite implements IFillSection {
     private TreeViewer        m_skills;
     private TreeViewer        m_stats;
     private MSG               m_msg;
+    private IProject          m_proj;
 
     private static class Skill {
         public String name;
@@ -198,10 +200,11 @@ public class Critter extends Composite implements IFillSection {
      * @param parent
      * @param style
      */
-    public Critter(Composite parent, int style, Ref<Prototype> proto, Ref<MSG> msg, IChangeListener changeListener) {
-        super(parent, style);
-        m_proto = proto;
-        m_changeListener = changeListener;
+    public Critter(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
+        m_proto = fact.getPro();
+        m_changeListener = fact.getChangeListener();
+        m_proj = fact.getProject();
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();
@@ -352,10 +355,8 @@ public class Critter extends Composite implements IFillSection {
 
     }
 
-    private void fillSkills(IProject proj) throws WrongMsgEncoding, IOException, CoreException {
-        Charset cs = Charset.forName(proj.getDefaultCharset());
-        MSG skill_msg = new MSG(SslPlugin.getFile(proj, "text/english/game/skill.msg").getContents(), cs);
-
+    private void fillSkills() throws WrongMsgEncoding, IOException, CoreException {
+        MSG skill_msg = SslPlugin.getCachedMsg(m_proj, "text/english/game/skill.msg");
         Skill[] skills = new Skill[18];
 
         skills[0] = new Skill(skill_msg.get(100).getMsg(), "smallGuns");
@@ -380,10 +381,8 @@ public class Critter extends Composite implements IFillSection {
         m_skills.setInput(skills);
     }
 
-    private void fillStats(IProject proj) throws WrongMsgEncoding, IOException, CoreException {
-        Charset cs = Charset.forName(proj.getDefaultCharset());
-        m_msg = new MSG(SslPlugin.getFile(proj, "text/english/game/stat.msg").getContents(), cs);
-
+    private void fillStats() throws WrongMsgEncoding, IOException, CoreException {
+        m_msg = SslPlugin.getCachedMsg(m_proj, "text/english/game/stat.msg");
         Map<String, Category> cats = CategoryParser.getCategory(getClass().getResourceAsStream("protocat.xml"));
         m_stats.setInput(cats.get("Critter"));
     }
@@ -394,9 +393,9 @@ public class Critter extends Composite implements IFillSection {
     }
 
     @Override
-    public void setup(IProject proj) throws Exception {
-        fillSkills(proj);
-        fillStats(proj);
+    public void setup() throws Exception {
+        fillSkills();
+        fillStats();
     }
 
     @Override

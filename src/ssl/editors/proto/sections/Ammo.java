@@ -1,7 +1,5 @@
 package ssl.editors.proto.sections;
 
-import java.nio.charset.Charset;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -17,7 +15,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import ssl.SslPlugin;
-import ssl.editors.proto.IChangeListener;
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.accessor.BasicAccessor;
 import ssl.editors.proto.accessor.ProtoControlAdapter;
@@ -35,6 +33,7 @@ public class Ammo extends Composite implements IFillSection {
     private Combo               m_caliber;
 
     private ProtoControlAdapter m_protoAdapter;
+    private IProject            m_proj;
 
     /**
      * Create the composite.
@@ -43,9 +42,10 @@ public class Ammo extends Composite implements IFillSection {
      * @param style
      * @param changeListener
      */
-    public Ammo(Composite parent, int style, Ref<Prototype> proto, Ref<MSG> msg, IChangeListener changeListener) {
-        super(parent, style);
-        m_protoAdapter = new ProtoControlAdapter(proto, msg, changeListener);
+    public Ammo(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
+        m_protoAdapter = fact.create();
+        m_proj = fact.getProject();
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();
@@ -126,9 +126,8 @@ public class Ammo extends Composite implements IFillSection {
     }
 
     @Override
-    public void setup(IProject proj) throws Exception {
-        Charset cs = Charset.forName(proj.getDefaultCharset());
-        MSG proto_msg = new MSG(SslPlugin.getFile(proj, "text/english/game/proto.msg").getContents(), cs);
+    public void setup() throws Exception {
+        MSG proto_msg = SslPlugin.getCachedMsg(m_proj, "text/english/game/proto.msg");
 
         for (int i = 300; i <= 318; i++)
             m_caliber.add(proto_msg.get(i).getMsg());

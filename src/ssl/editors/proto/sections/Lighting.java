@@ -20,8 +20,8 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import ssl.editors.proto.IChangeListener;
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
-import fdk.msg.MSG;
 import fdk.proto.Prototype;
 
 public class Lighting extends Composite implements IFillSection {
@@ -33,6 +33,7 @@ public class Lighting extends Composite implements IFillSection {
     private Label             m_intens;
 
     private Ref<Prototype>    m_proto;
+    private IChangeListener   m_cl;
 
     /**
      * Create the composite.
@@ -42,9 +43,10 @@ public class Lighting extends Composite implements IFillSection {
      * @param msg
      * @param proto
      */
-    public Lighting(Composite parent, int style, final Ref<Prototype> proto, Ref<MSG> msg, final IChangeListener cl) {
-        super(parent, style);
-        m_proto = proto;
+    public Lighting(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
+        m_proto = fact.getPro();
+        m_cl = fact.getChangeListener();
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();
@@ -82,9 +84,9 @@ public class Lighting extends Composite implements IFillSection {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 int val = m_sdistance.getSelection();
-                if (!proto.get().getFields().get("lightDist").equals(val)) {
-                    proto.get().getFields().put("lightDist", val);
-                    cl.change();
+                if (!m_proto.get().getFields().get("lightDist").equals(val)) {
+                    m_proto.get().getFields().put("lightDist", val);
+                    m_cl.change();
                 }
             }
         });
@@ -102,9 +104,9 @@ public class Lighting extends Composite implements IFillSection {
             public void widgetSelected(SelectionEvent e) {
                 setIntensLabel(m_sintens.getSelection());
                 int val = m_sintens.getSelection();
-                if (!proto.get().getFields().get("lightIntens").equals(val)) {
-                    proto.get().getFields().put("lightIntens", val);
-                    cl.change();
+                if (!m_proto.get().getFields().get("lightIntens").equals(val)) {
+                    m_proto.get().getFields().put("lightIntens", val);
+                    m_cl.change();
                 }
             }
         });
@@ -135,5 +137,5 @@ public class Lighting extends Composite implements IFillSection {
     }
 
     @Override
-    public void setup(IProject proj) throws Exception {}
+    public void setup() throws Exception {}
 }

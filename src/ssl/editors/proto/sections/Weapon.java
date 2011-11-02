@@ -1,7 +1,5 @@
 package ssl.editors.proto.sections;
 
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
@@ -19,16 +17,15 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import ssl.SslPlugin;
-import ssl.editors.frm.FRMPanel;
 import ssl.editors.frm.FID;
-import ssl.editors.proto.IChangeListener;
+import ssl.editors.frm.FRMPanel;
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.accessor.BasicAccessor;
 import ssl.editors.proto.accessor.MaskShiftAccessor;
 import ssl.editors.proto.accessor.OffsetAccessor;
 import ssl.editors.proto.accessor.ProtoControlAdapter;
 import ssl.editors.proto.accessor.ZeroAddAccessor;
-import fdk.lst.BasicEntryMaker;
 import fdk.lst.IEntry;
 import fdk.lst.LST;
 import fdk.msg.MSG;
@@ -58,9 +55,10 @@ public class Weapon extends Composite implements IFillSection {
     private LST                 m_itm_lst;
     private Combo               m_at1;
     private Combo               m_at2;
+    private Combo               m_proj;
 
     private ProtoControlAdapter m_protoAdapter;
-    private Combo               m_proj;
+    private IProject            m_project;
 
     /**
      * Create the composite.
@@ -71,9 +69,10 @@ public class Weapon extends Composite implements IFillSection {
      * @param proto
      * @param changeListener
      */
-    public Weapon(Composite parent, int style, Ref<Prototype> proto, Ref<MSG> msg, IChangeListener changeListener) {
-        super(parent, style);
-        m_protoAdapter = new ProtoControlAdapter(proto, msg, changeListener);
+    public Weapon(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
+        m_protoAdapter = fact.create();
+        m_project = fact.getProject();
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();
@@ -173,7 +172,7 @@ public class Weapon extends Composite implements IFillSection {
         label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 4, 1));
         m_toolkit.adapt(label, true, true);
 
-        m_ammo = new FRMPanel(this, SWT.NONE);
+        m_ammo = new FRMPanel(this, m_project, FID.ITEMS);
         GridData gd_ammo = new GridData(SWT.FILL, SWT.FILL, true, false, 2, 2);
         gd_ammo.heightHint = 100;
         m_ammo.setLayoutData(gd_ammo);
@@ -270,27 +269,24 @@ public class Weapon extends Composite implements IFillSection {
             if (ent != null) {
                 Prototype apro = new Prototype(SslPlugin.getFile(proj, PRO.getProDir(Type.ITEM) + ent.getValue())
                         .getContents());
-                int fid = apro.getFields().get("invFID");
-                InputStream frms = FID.getByFID(proj, fid);
-                m_ammo.setImage(frms, SslPlugin.getStdPal(proj));
+                m_ammo.setFID(apro.getFields().get("invFID"));
             }
         }
 
     }
 
     @Override
-    public void setup(IProject proj) throws Exception {
+    public void setup() throws Exception {
         String[] anims = { "None", "Knife (D)", "Club (E)", "2Hnd Club (F)", "Spear (G)", "Pistol (H)", "Uzi (I)",
                 "Rifle (J)", "Laser (K)", "Minigun (L)", "Rocket Launcher (M)" };
         for (String a : anims)
             m_anim.add(a);
 
-        Charset cs = Charset.forName(proj.getDefaultCharset());
-        MSG proto_msg = new MSG(SslPlugin.getFile(proj, "text/english/game/proto.msg").getContents(), cs);
+        MSG proto_msg = SslPlugin.getCachedMsg(m_project, "text/english/game/proto.msg");
         for (int i = 250; i <= 256; i++)
             m_dmgt.add(proto_msg.get(i).getMsg());
 
-        MSG perk_msg = new MSG(SslPlugin.getFile(proj, "text/english/game/perk.msg").getContents(), cs);
+        MSG perk_msg = SslPlugin.getCachedMsg(m_project, "text/english/game/perk.msg");
         m_perk.add("None");
         for (int i = 101; i <= 219; i++)
             m_perk.add(perk_msg.get(i).getMsg());
@@ -298,7 +294,7 @@ public class Weapon extends Composite implements IFillSection {
         for (int i = 300; i <= 318; i++)
             m_caliber.add(proto_msg.get(i).getMsg());
 
-        m_itm_lst = new LST(SslPlugin.getFile(proj, PRO.getLst(Type.ITEM)).getContents(), cs, new BasicEntryMaker());
+        m_itm_lst = SslPlugin.getCachedLST(m_project, PRO.getLst(PRO.Type.ITEM));
 
         String[] atts = { "Stand", "Throw punch", "Kick leg", "Swing", "Thrust", "Throw", "Single", "Burst",
                 "Continous" };
@@ -307,7 +303,7 @@ public class Weapon extends Composite implements IFillSection {
             m_at2.add(at);
         }
 
-        MSG projMsg = new MSG(SslPlugin.getFile(proj, PRO.getMsg(PRO.Type.MISC)).getContents(), cs);
+        MSG projMsg = SslPlugin.getCachedMsg(m_project, PRO.getMsg(PRO.Type.MISC));
         m_proj.add("None");
         MsgEntry ent;
         int i = 100;

@@ -14,11 +14,10 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
-import ssl.editors.proto.IChangeListener;
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.accessor.MaskAccessor;
 import ssl.editors.proto.accessor.ProtoControlAdapter;
-import fdk.msg.MSG;
 import fdk.proto.Prototype;
 
 public class CritterFlags extends Composite implements IFillSection {
@@ -61,9 +60,9 @@ public class CritterFlags extends Composite implements IFillSection {
      * @param parent
      * @param style
      */
-    public CritterFlags(Composite parent, int style, Ref<Prototype> proto, Ref<MSG> msg, IChangeListener cl) {
-        super(parent, style);
-        m_protoAdapter = new ProtoControlAdapter(proto, msg, cl);
+    public CritterFlags(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
+        m_protoAdapter = fact.create();
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();
@@ -244,7 +243,7 @@ public class CritterFlags extends Composite implements IFillSection {
     }
 
     @Override
-    public void setup(IProject proj) throws Exception {}
+    public void setup() throws Exception {}
 
     @Override
     public Control toControl() {

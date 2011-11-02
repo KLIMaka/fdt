@@ -1,7 +1,5 @@
 package ssl.editors.proto.sections;
 
-import java.nio.charset.Charset;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -16,13 +14,12 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import ssl.SslPlugin;
-import ssl.editors.proto.IChangeListener;
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.accessor.BasicAccessor;
 import ssl.editors.proto.accessor.ProtoControlAdapter;
 import fdk.lst.LST;
 import fdk.lst.ScriptLstMaker;
-import fdk.msg.MSG;
 import fdk.proto.Prototype;
 
 public class Script extends Composite implements IFillSection {
@@ -33,6 +30,7 @@ public class Script extends Composite implements IFillSection {
     private LST                 m_scriptLst;
 
     private ProtoControlAdapter m_protoAdapter;
+    private IProject            m_proj;
 
     /**
      * Create the composite.
@@ -42,9 +40,10 @@ public class Script extends Composite implements IFillSection {
      * @param msg
      * @param proto
      */
-    public Script(Composite parent, int style, Ref<Prototype> proto, Ref<MSG> msg, IChangeListener cl) {
-        super(parent, style);
-        m_protoAdapter = new ProtoControlAdapter(proto, msg, cl);
+    public Script(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
+        m_protoAdapter = fact.create();
+        m_proj = fact.getProject();
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();
@@ -74,16 +73,17 @@ public class Script extends Composite implements IFillSection {
     public void fill(Ref<Prototype> proto, IProject proj) throws Exception {
         int sid = (Integer) proto.get().getFields().get("scriptID");
         m_protoAdapter.fill();
-        if (sid != -1)
+        if (sid != -1) {
             m_descr.setText(((ScriptLstMaker.Entry) m_scriptLst.get(sid & 0x0000ffff)).getComment());
-        else m_descr.setText("None");
+        } else {
+            m_descr.setText("None");
+        }
 
     }
 
     @Override
-    public void setup(IProject proj) throws Exception {
-        Charset cs = Charset.forName(proj.getDefaultCharset());
-        m_scriptLst = new LST(SslPlugin.getFile(proj, "scripts/scripts.lst").getContents(), cs, new ScriptLstMaker());
+    public void setup() throws Exception {
+        m_scriptLst = SslPlugin.getCachedLST(m_proj, "scripts/scripts.lst");
     }
 
     @Override

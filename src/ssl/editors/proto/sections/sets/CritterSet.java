@@ -1,7 +1,5 @@
 package ssl.editors.proto.sections.sets;
 
-import java.io.InputStream;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -15,10 +13,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import ssl.SslPlugin;
-import ssl.editors.frm.FRMPanel;
 import ssl.editors.frm.FID;
-import ssl.editors.proto.IChangeListener;
+import ssl.editors.frm.FRMPanel;
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.sections.Critter;
 import ssl.editors.proto.sections.CritterDetails;
@@ -26,7 +23,6 @@ import ssl.editors.proto.sections.CritterFlags;
 import ssl.editors.proto.sections.Description;
 import ssl.editors.proto.sections.IFillSection;
 import ssl.editors.proto.sections.Lighting;
-import fdk.msg.MSG;
 import fdk.proto.Prototype;
 
 public class CritterSet extends Composite implements IFillSection {
@@ -54,8 +50,8 @@ public class CritterSet extends Composite implements IFillSection {
      * @param proto
      * @param cl
      */
-    public CritterSet(Composite parent, int style, Ref<Prototype> proto, Ref<MSG> msg, IChangeListener cl) {
-        super(parent, style);
+    public CritterSet(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();
@@ -87,7 +83,7 @@ public class CritterSet extends Composite implements IFillSection {
         xpndblcmpstNewExpandablecomposite.setText("Description");
         xpndblcmpstNewExpandablecomposite.setExpanded(true);
 
-        m_descr = new Description(xpndblcmpstNewExpandablecomposite, SWT.NONE, proto, msg, cl);
+        m_descr = new Description(xpndblcmpstNewExpandablecomposite, fact);
         m_toolkit.adapt(m_descr);
         m_toolkit.paintBordersFor(m_descr);
         xpndblcmpstNewExpandablecomposite.setClient(m_descr);
@@ -100,7 +96,7 @@ public class CritterSet extends Composite implements IFillSection {
         xpndblcmpstCritter.setText("Critter");
         xpndblcmpstCritter.setExpanded(true);
 
-        m_critter = new Critter(xpndblcmpstCritter, SWT.NONE, proto, msg, cl);
+        m_critter = new Critter(xpndblcmpstCritter, fact);
         m_toolkit.adapt(m_critter);
         m_toolkit.paintBordersFor(m_critter);
         xpndblcmpstCritter.setClient(m_critter);
@@ -117,17 +113,17 @@ public class CritterSet extends Composite implements IFillSection {
         m_expandableComposite.setClient(m_composite_1);
         m_composite_1.setLayout(new GridLayout(2, false));
 
-        m_critterFlags = new CritterFlags(m_composite_1, SWT.NONE, proto, msg, cl);
+        m_critterFlags = new CritterFlags(m_composite_1, fact);
         m_critterFlags.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 2));
         m_toolkit.adapt(m_critterFlags);
         m_toolkit.paintBordersFor(m_critterFlags);
 
-        m_critterDetails = new CritterDetails(m_composite_1, SWT.NONE, proto, msg, cl);
+        m_critterDetails = new CritterDetails(m_composite_1, fact);
         m_critterDetails.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
         m_toolkit.adapt(m_critterDetails);
         m_toolkit.paintBordersFor(m_critterDetails);
 
-        m_img = new FRMPanel(m_composite_1, SWT.NONE);
+        m_img = new FRMPanel(m_composite_1, fact.getProject(), FID.CRITTERS);
         m_img.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
         m_toolkit.adapt(m_img);
         m_toolkit.paintBordersFor(m_img);
@@ -140,7 +136,7 @@ public class CritterSet extends Composite implements IFillSection {
         xpndblcmpstLighting.setText("Lighting");
         xpndblcmpstLighting.setExpanded(true);
 
-        m_lighting = new Lighting(xpndblcmpstLighting, SWT.NONE, proto, msg, cl);
+        m_lighting = new Lighting(xpndblcmpstLighting, fact);
         m_toolkit.adapt(m_lighting);
         m_toolkit.paintBordersFor(m_lighting);
         xpndblcmpstLighting.setClient(m_lighting);
@@ -155,10 +151,7 @@ public class CritterSet extends Composite implements IFillSection {
         m_critter.fill(proto, proj);
         m_critterFlags.fill(proto, proj);
         m_critterDetails.fill(proto, proj);
-
-        int fid = (Integer) proto.get().getFields().get("gndFID");
-        InputStream frms = FID.getByFID(proj, fid);
-        m_img.setImage(frms, SslPlugin.getStdPal(proj));
+        m_img.setFID(proto.get().getFields().get("gndFID"));
     }
 
     @Override
@@ -167,8 +160,8 @@ public class CritterSet extends Composite implements IFillSection {
     }
 
     @Override
-    public void setup(IProject proj) throws Exception {
-        m_critterDetails.setup(proj);
-        m_critter.setup(proj);
+    public void setup() throws Exception {
+        m_critterDetails.setup();
+        m_critter.setup();
     }
 }

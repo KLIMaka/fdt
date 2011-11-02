@@ -56,10 +56,9 @@ public class FRMList extends Composite {
      * Create the composite.
      * 
      * @param parent
-     * @param style
      */
-    public FRMList(Composite parent, int style) {
-        super(parent, style);
+    public FRMList(Composite parent) {
+        super(parent, SWT.NONE);
         GridLayout gridLayout = new GridLayout(2, false);
         gridLayout.marginHeight = 0;
         gridLayout.marginWidth = 0;

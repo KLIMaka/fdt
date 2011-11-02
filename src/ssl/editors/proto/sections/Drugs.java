@@ -1,7 +1,5 @@
 package ssl.editors.proto.sections;
 
-import java.nio.charset.Charset;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -18,7 +16,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import ssl.SslPlugin;
-import ssl.editors.proto.IChangeListener;
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.accessor.BasicAccessor;
 import ssl.editors.proto.accessor.OffsetAccessor;
@@ -48,6 +46,7 @@ public class Drugs extends Composite implements IFillSection {
     private Combo               m_effect;
 
     private ProtoControlAdapter m_protoAdapter;
+    private IProject            m_proj;
 
     /**
      * Create the composite.
@@ -58,9 +57,10 @@ public class Drugs extends Composite implements IFillSection {
      * @param proto
      * @param changeListener
      */
-    public Drugs(Composite parent, int style, Ref<Prototype> proto, Ref<MSG> msg, IChangeListener changeListener) {
-        super(parent, style);
-        m_protoAdapter = new ProtoControlAdapter(proto, msg, changeListener);
+    public Drugs(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
+        m_protoAdapter = fact.create();
+        m_proj = fact.getProject();
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();
@@ -236,15 +236,14 @@ public class Drugs extends Composite implements IFillSection {
     }
 
     @Override
-    public void setup(IProject proj) throws Exception {
-        Charset cs = Charset.forName(proj.getDefaultCharset());
-        MSG perk_msg = new MSG(SslPlugin.getFile(proj, "text/english/game/perk.msg").getContents(), cs);
+    public void setup() throws Exception {
+        MSG perk_msg = SslPlugin.getCachedMsg(m_proj, "text/english/game/perk.msg");
 
         m_effect.add("None");
         for (int i = 101; i <= 219; i++)
             m_effect.add(perk_msg.get(i).getMsg());
 
-        MSG stat_msg = new MSG(SslPlugin.getFile(proj, "text/english/game/stat.msg").getContents(), cs);
+        MSG stat_msg = SslPlugin.getCachedMsg(m_proj, "text/english/game/stat.msg");
 
         String[] hlp = { "Random", "None" };
         for (String str : hlp) {

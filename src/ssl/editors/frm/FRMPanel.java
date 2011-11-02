@@ -3,6 +3,7 @@ package ssl.editors.frm;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
@@ -117,6 +118,8 @@ public class FRMPanel extends Composite {
 
     private MyMouse        m_mouse    = new MyMouse();
     private Action         m_center;
+    private int            m_fidType;
+    private IProject       m_proj;
 
     // private Texture tex;
     //
@@ -129,7 +132,7 @@ public class FRMPanel extends Composite {
      * @param parent
      * @param style
      */
-    public FRMPanel(Composite parent, int style) {
+    public FRMPanel(Composite parent, IProject proj, int fidtype) {
 
         super(parent, SWT.BORDER);
         GridLayout gridLayout = new GridLayout(2, false);
@@ -137,6 +140,9 @@ public class FRMPanel extends Composite {
         gridLayout.marginHeight = 0;
         gridLayout.horizontalSpacing = 0;
         setLayout(gridLayout);
+
+        m_fidType = fidtype;
+        m_proj = proj;
 
         createActions();
 
@@ -228,10 +234,12 @@ public class FRMPanel extends Composite {
         m_mgr.update(true);
     }
 
-    public void setImage(InputStream frmStream, PaletteData pal) {
+    public void setFID(int fid) {
+
+        InputStream frmStream = FID.getByFID(m_proj, fid);
         try {
             m_frm = new FRMImage(frmStream);
-            m_pal = pal;
+            m_pal = SslPlugin.getStdPal(m_proj);
         } catch (IOException e) {
             e.printStackTrace();
             m_frm = null;
@@ -317,6 +325,7 @@ public class FRMPanel extends Composite {
             };
         };
         m_center.setImageDescriptor(SslPlugin.getImageDescriptor("icons/link_to_editor.gif"));
+
     }
 
 }

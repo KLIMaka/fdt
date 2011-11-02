@@ -1,6 +1,5 @@
 package ssl.editors.proto.sections;
 
-import java.io.InputStream;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
@@ -18,14 +17,12 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
-import ssl.SslPlugin;
-import ssl.editors.frm.FRMPanel;
 import ssl.editors.frm.FID;
-import ssl.editors.proto.IChangeListener;
+import ssl.editors.frm.FRMPanel;
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import ssl.editors.proto.accessor.BasicAccessor;
 import ssl.editors.proto.accessor.ProtoControlAdapter;
-import fdk.msg.MSG;
 import fdk.proto.Prototype;
 
 public class ItemGeneral extends Composite {
@@ -38,6 +35,7 @@ public class ItemGeneral extends Composite {
     private FRMPanel            m_gnd;
 
     private ProtoControlAdapter m_protoAdaptor;
+    private IProject            m_proj;
 
     /**
      * Create the composite.
@@ -47,9 +45,10 @@ public class ItemGeneral extends Composite {
      * @param msg
      * @param proto
      */
-    public ItemGeneral(Composite parent, int style, Ref<Prototype> proto, Ref<MSG> msg, IChangeListener cl) {
-        super(parent, style);
-        m_protoAdaptor = new ProtoControlAdapter(proto, msg, cl);
+    public ItemGeneral(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
+        m_protoAdaptor = fact.create();
+        m_proj = fact.getProject();
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();
@@ -98,12 +97,12 @@ public class ItemGeneral extends Composite {
         composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 6, 1));
         m_toolkit.paintBordersFor(composite);
 
-        m_gnd = new FRMPanel(composite, SWT.NONE);
+        m_gnd = new FRMPanel(composite, m_proj, FID.ITEMS);
         m_gnd.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.FILL_GRAB, 1, 1));
         m_toolkit.adapt(m_gnd);
         m_toolkit.paintBordersFor(m_gnd);
 
-        m_inv = new FRMPanel(composite, SWT.NONE);
+        m_inv = new FRMPanel(composite, m_proj, FID.INVEN);
         TableWrapData twd_m_inv = new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.FILL_GRAB, 1, 1);
         twd_m_inv.heightHint = 148;
         m_inv.setLayoutData(twd_m_inv);
@@ -116,14 +115,7 @@ public class ItemGeneral extends Composite {
         Map<String, Integer> fields = proto.get().getFields();
 
         m_protoAdaptor.fill();
-
-        int fid = fields.get("gndFID");
-        InputStream frms = FID.getByFID(proj, fid);
-        m_gnd.setImage(frms, SslPlugin.getStdPal(proj));
-
-        fid = fields.get("invFID");
-        frms = FID.getByFID(proj, fid);
-        m_inv.setImage(frms, SslPlugin.getStdPal(proj));
+        m_gnd.setFID(fields.get("gndFID"));
+        m_inv.setFID(fields.get("invFID"));
     }
-
 }

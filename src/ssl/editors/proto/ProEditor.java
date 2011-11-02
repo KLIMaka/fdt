@@ -259,13 +259,15 @@ public class ProEditor extends FormPage {
         // /////////////////////////////////////////////////////////
 
         try {
-            m_selector.generateSets(m_details, toolkit, m_project, m_proto, m_msg, new IChangeListener() {
+            ProtoAdaptorsFactory factory = new ProtoAdaptorsFactory(m_project, m_proto, m_msg, new IChangeListener() {
                 @Override
                 public void change() {
                     m_dirty = true;
                     setDirty();
                 }
             });
+
+            m_selector.generateSets(m_details, toolkit, factory);
         } catch (Exception e) {
             e.printStackTrace();
         }

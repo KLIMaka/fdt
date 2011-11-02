@@ -15,6 +15,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import ssl.editors.proto.ProtoAdaptorsFactory;
 import ssl.editors.proto.Ref;
 import fdk.proto.Prototype;
 
@@ -31,8 +32,8 @@ public class Misk extends Composite implements IFillSection {
      * @param parent
      * @param style
      */
-    public Misk(Composite parent, int style) {
-        super(parent, style);
+    public Misk(Composite parent, ProtoAdaptorsFactory fact) {
+        super(parent, SWT.NONE);
         addDisposeListener(new DisposeListener() {
             public void widgetDisposed(DisposeEvent e) {
                 m_toolkit.dispose();
@@ -75,7 +76,7 @@ public class Misk extends Composite implements IFillSection {
     }
 
     @Override
-    public void setup(IProject proj) throws Exception {}
+    public void setup() throws Exception {}
 
     @Override
     public Control toControl() {
