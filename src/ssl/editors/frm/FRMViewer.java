@@ -71,8 +71,8 @@ public class FRMViewer extends EditorPart {
 
     @Override
     public void dispose() {
+        m_panel1.dispose();
         super.dispose();
-        // m_panel.dispose();
 
     }
 

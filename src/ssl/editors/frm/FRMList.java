@@ -1,8 +1,6 @@
 package ssl.editors.frm;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
@@ -52,7 +50,7 @@ public class FRMList extends Composite {
     private Object                        m_selected;
 
     private ArrayList<ISelectionListener> m_selectionListeners = new ArrayList<ISelectionListener>();
-    private Timer                         m_preloader          = new Timer();
+    private Thread                        m_preloader;
 
     /**
      * Create the composite.
@@ -183,9 +181,9 @@ public class FRMList extends Composite {
         for (Image img : m_cachedImages) {
             img.dispose();
         }
-        try {
-            m_preloader.cancel();
-        } catch (Exception e) {}
+        if (m_preloader != null) {
+            m_preloader.interrupt();
+        }
         super.dispose();
     }
 
@@ -198,16 +196,18 @@ public class FRMList extends Composite {
     }
 
     private void preloadImages(final Object[] lst) {
-        m_preloader.cancel();
-        m_preloader = new Timer();
-        m_preloader.schedule(new TimerTask() {
+        if (m_preloader != null) {
+            m_preloader.interrupt();
+        }
+        m_preloader = new Thread(new Runnable() {
             @Override
             public void run() {
                 for (Object o : lst) {
+                    if (Thread.interrupted()) return;
                     m_labelProvider.getImage(o);
                 }
             }
-        }, 0);
+        }, "FRMListPreloader");
     }
 
     public void setInput(Object input) {
