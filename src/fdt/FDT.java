@@ -45,7 +45,7 @@ public class FDT extends AbstractUIPlugin {
     public static final String PLUGIN_ID = "FDT";
 
     // The shared instance
-    private static FDT   plugin;
+    private static FDT         plugin;
 
     /**
      * The constructor

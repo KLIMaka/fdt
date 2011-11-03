@@ -46,7 +46,7 @@
       </filesystem>
    </extension>
    <extension
-         id="SSLBuilder"
+         id="FDT.SSLBuilder"
          name="SSL Project Builder"
          point="org.eclipse.core.resources.builders">
       <builder
@@ -57,7 +57,7 @@
       </builder>
    </extension>
    <extension
-         id="SSLNature"
+         id="FDT.SSLNature"
          name="SSL Project Nature"
          point="org.eclipse.core.resources.natures">
       <runtime>
@@ -66,11 +66,11 @@
          </run>
       </runtime>
       <builder
-            id="SSL.SSLBuilder">
+            id="FDT.SSLBuilder">
       </builder>
    </extension>
    <extension
-         id="sslcProblem"
+         id="FDT.sslcProblem"
          name="SSLC Problem"
          point="org.eclipse.core.resources.markers">
       <super

@@ -49,7 +49,7 @@ public class SSLCResourceVisitor implements IResourceVisitor, IResourceDeltaVisi
     }
 
     private Compiler            m_compiler;
-    private static final String MARKER_TYPE = "SSL.sslcProblem";
+    private static final String MARKER_TYPE = "FDT.sslcProblem";
     private MessageConsole      m_console   = createConsole("SSLC Console");
     private IProgressMonitor    m_monitor;
     private IProject            m_project;

@@ -11,7 +11,7 @@ public class SSLNature implements IProjectNature {
     /**
      * ID of this project nature
      */
-    public static final String NATURE_ID = "SSL.SSLNature";
+    public static final String NATURE_ID = "FDT.SSLNature";
 
     private IProject           project;
 

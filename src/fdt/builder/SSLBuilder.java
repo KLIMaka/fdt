@@ -12,7 +12,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 public class SSLBuilder extends IncrementalProjectBuilder {
 
-    public static final String BUILDER_ID = "SSL.SSLBuilder";
+    public static final String BUILDER_ID = "FDT.SSLBuilder";
 
     public static boolean checkSSLName(String name) {
         return name.matches(".*\\.[Ss][Ss][Ll]$");
