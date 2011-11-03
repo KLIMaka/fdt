@@ -50,7 +50,7 @@ public class Armor extends Composite implements IFillSection {
     private Text                m_DREMP;
     private Text                m_DRExpl;
     private Combo               m_perk;
-    private FIDSelectPanel            m_view;
+    private FIDSelectPanel      m_view;
     private Button              m_male;
     private Button              m_female;
     private Label               m_label;
@@ -283,7 +283,7 @@ public class Armor extends Composite implements IFillSection {
         if (m_frame == 0) {
             m_view.setField("maleFID");
         } else {
-            m_view.setField("maleFID");
+            m_view.setField("femaleFID");
         }
         m_view.fill();
     }
