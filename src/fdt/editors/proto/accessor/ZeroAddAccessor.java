@@ -7,7 +7,7 @@ public class ZeroAddAccessor extends BasicAccessor {
 
     protected int m_add;
 
-    public ZeroAddAccessor(String field, int add) {
+    public ZeroAddAccessor(int field, int add) {
         super(field);
         m_add = add;
     }

@@ -135,7 +135,7 @@ public class FIDSelectPanel extends Composite {
      * @param parent
      * @param style
      */
-    public FIDSelectPanel(Composite parent, ProtoAdaptorsFactory fact, String field, int fidtype) {
+    public FIDSelectPanel(Composite parent, ProtoAdaptorsFactory fact, int field, int fidtype) {
 
         super(parent, SWT.BORDER);
         GridLayout gridLayout = new GridLayout(2, false);
@@ -286,7 +286,7 @@ public class FIDSelectPanel extends Composite {
         m_dx = m_dy = 0;
     }
 
-    public void setField(String field) {
+    public void setField(int field) {
         m_accessor = new BasicAccessor(field);
     }
 

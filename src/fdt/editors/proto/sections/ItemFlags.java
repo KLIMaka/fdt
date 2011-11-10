@@ -99,67 +99,67 @@ public class ItemFlags extends Composite {
         m_flat = new Button(grpFlags, SWT.CHECK);
         m_flat.setText("Flat");
         m_toolkit.adapt(m_flat, true, true);
-        m_protoAdapter.adopt(m_flat, new MaskAccessor("flags", 0x00000008));
+        m_protoAdapter.adopt(m_flat, new MaskAccessor(Prototype.FLAGS, 0x00000008));
 
         m_noblock = new Button(grpFlags, SWT.CHECK);
         m_noblock.setText("No Block");
         m_toolkit.adapt(m_noblock, true, true);
-        m_protoAdapter.adopt(m_noblock, new MaskAccessor("flags", 0x00000010));
+        m_protoAdapter.adopt(m_noblock, new MaskAccessor(Prototype.FLAGS, 0x00000010));
 
         m_multihex = new Button(grpFlags, SWT.CHECK);
         m_multihex.setText("Multi Hex");
         m_toolkit.adapt(m_multihex, true, true);
-        m_protoAdapter.adopt(m_multihex, new MaskAccessor("flags", 0x00000800));
+        m_protoAdapter.adopt(m_multihex, new MaskAccessor(Prototype.FLAGS, 0x00000800));
 
         m_transnone = new Button(grpFlags, SWT.CHECK);
         m_transnone.setText("TransNone");
         m_toolkit.adapt(m_transnone, true, true);
-        m_protoAdapter.adopt(m_transnone, new MaskAccessor("flags", 0x00008000));
+        m_protoAdapter.adopt(m_transnone, new MaskAccessor(Prototype.FLAGS, 0x00008000));
 
         m_transwall = new Button(grpFlags, SWT.CHECK);
         m_transwall.setText("TransWall");
         m_toolkit.adapt(m_transwall, true, true);
-        m_protoAdapter.adopt(m_transwall, new MaskAccessor("flags", 0x000010000));
+        m_protoAdapter.adopt(m_transwall, new MaskAccessor(Prototype.FLAGS, 0x000010000));
 
         m_transglass = new Button(grpFlags, SWT.CHECK);
         m_transglass.setText("TransGlass");
         m_toolkit.adapt(m_transglass, true, true);
-        m_protoAdapter.adopt(m_transglass, new MaskAccessor("flags", 0x00020000));
+        m_protoAdapter.adopt(m_transglass, new MaskAccessor(Prototype.FLAGS, 0x00020000));
 
         m_transsteam = new Button(grpFlags, SWT.CHECK);
         m_transsteam.setText("TransSteam");
         m_toolkit.adapt(m_transsteam, true, true);
-        m_protoAdapter.adopt(m_transsteam, new MaskAccessor("flags", 0x00040000));
+        m_protoAdapter.adopt(m_transsteam, new MaskAccessor(Prototype.FLAGS, 0x00040000));
 
         m_transenergy = new Button(grpFlags, SWT.CHECK);
         m_transenergy.setText("TransEnergy");
         m_toolkit.adapt(m_transenergy, true, true);
-        m_protoAdapter.adopt(m_transenergy, new MaskAccessor("flags", 0x00080000));
+        m_protoAdapter.adopt(m_transenergy, new MaskAccessor(Prototype.FLAGS, 0x00080000));
 
         m_transred = new Button(grpFlags, SWT.CHECK);
         m_transred.setText("TransRed");
         m_toolkit.adapt(m_transred, true, true);
-        m_protoAdapter.adopt(m_transred, new MaskAccessor("flags", 0x00004000));
+        m_protoAdapter.adopt(m_transred, new MaskAccessor(Prototype.FLAGS, 0x00004000));
 
         m_shootthru = new Button(grpFlags, SWT.CHECK);
         m_shootthru.setText("ShootThru");
         m_toolkit.adapt(m_shootthru, true, true);
-        m_protoAdapter.adopt(m_shootthru, new MaskAccessor("flags", 0x80000000));
+        m_protoAdapter.adopt(m_shootthru, new MaskAccessor(Prototype.FLAGS, 0x80000000));
 
         m_lightthru = new Button(grpFlags, SWT.CHECK);
         m_lightthru.setText("LightThru");
         m_toolkit.adapt(m_lightthru, true, true);
-        m_protoAdapter.adopt(m_lightthru, new MaskAccessor("flags", 0x20000000));
+        m_protoAdapter.adopt(m_lightthru, new MaskAccessor(Prototype.FLAGS, 0x20000000));
 
         m_lighting = new Button(grpFlags, SWT.CHECK);
         m_lighting.setText("Lighting");
         m_toolkit.adapt(m_lighting, true, true);
-        m_protoAdapter.adopt(m_lighting, new MaskAccessor("flags", 0x00000020));
+        m_protoAdapter.adopt(m_lighting, new MaskAccessor(Prototype.FLAGS, 0x00000020));
 
         m_nohightlight = new Button(grpFlags, SWT.CHECK);
         m_nohightlight.setText("NoHighlight");
         m_toolkit.adapt(m_nohightlight, true, true);
-        m_protoAdapter.adopt(m_nohightlight, new MaskAccessor("flags", 0x00001000));
+        m_protoAdapter.adopt(m_nohightlight, new MaskAccessor(Prototype.FLAGS, 0x00001000));
 
         Group grpItem = new Group(this, SWT.NONE);
         grpItem.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP, 1, 1));
@@ -171,7 +171,7 @@ public class ItemFlags extends Composite {
         m_hiddenitem = new Button(grpItem, SWT.CHECK);
         m_toolkit.adapt(m_hiddenitem, true, true);
         m_hiddenitem.setText("Hidden Item");
-        m_protoAdapter.adopt(m_hiddenitem, new MaskAccessor("flagsExt", 0x08000000));
+        m_protoAdapter.adopt(m_hiddenitem, new MaskAccessor(Prototype.FLAGS_EXT, 0x08000000));
 
         Group grpPrimaryAttackType = new Group(this, SWT.NONE);
         grpPrimaryAttackType.setLayout(new GridLayout(1, false));
@@ -183,47 +183,47 @@ public class ItemFlags extends Composite {
         m_pstand = new Button(grpPrimaryAttackType, SWT.RADIO);
         m_toolkit.adapt(m_pstand, true, true);
         m_pstand.setText("Stand");
-        m_protoAdapter.adopt(m_pstand, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 0, 0));
+        m_protoAdapter.adopt(m_pstand, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 0, 0));
 
         m_pthrowpunch = new Button(grpPrimaryAttackType, SWT.RADIO);
         m_toolkit.adapt(m_pthrowpunch, true, true);
         m_pthrowpunch.setText("Throw punch");
-        m_protoAdapter.adopt(m_pthrowpunch, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 0, 1));
+        m_protoAdapter.adopt(m_pthrowpunch, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 0, 1));
 
         m_pkickleg = new Button(grpPrimaryAttackType, SWT.RADIO);
         m_toolkit.adapt(m_pkickleg, true, true);
         m_pkickleg.setText("Kick leg");
-        m_protoAdapter.adopt(m_pkickleg, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 0, 2));
+        m_protoAdapter.adopt(m_pkickleg, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 0, 2));
 
         m_pswing = new Button(grpPrimaryAttackType, SWT.RADIO);
         m_toolkit.adapt(m_pswing, true, true);
         m_pswing.setText("Swing");
-        m_protoAdapter.adopt(m_pswing, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 0, 3));
+        m_protoAdapter.adopt(m_pswing, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 0, 3));
 
         m_pthrust = new Button(grpPrimaryAttackType, SWT.RADIO);
         m_toolkit.adapt(m_pthrust, true, true);
         m_pthrust.setText("Thrust");
-        m_protoAdapter.adopt(m_pthrust, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 0, 4));
+        m_protoAdapter.adopt(m_pthrust, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 0, 4));
 
         m_pthrow = new Button(grpPrimaryAttackType, SWT.RADIO);
         m_toolkit.adapt(m_pthrow, true, true);
         m_pthrow.setText("Throw");
-        m_protoAdapter.adopt(m_pthrow, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 0, 5));
+        m_protoAdapter.adopt(m_pthrow, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 0, 5));
 
         m_psingle = new Button(grpPrimaryAttackType, SWT.RADIO);
         m_toolkit.adapt(m_psingle, true, true);
         m_psingle.setText("Fire single");
-        m_protoAdapter.adopt(m_psingle, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 0, 6));
+        m_protoAdapter.adopt(m_psingle, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 0, 6));
 
         m_pburst = new Button(grpPrimaryAttackType, SWT.RADIO);
         m_toolkit.adapt(m_pburst, true, true);
         m_pburst.setText("Fire burst");
-        m_protoAdapter.adopt(m_pburst, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 0, 7));
+        m_protoAdapter.adopt(m_pburst, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 0, 7));
 
         m_pcontin = new Button(grpPrimaryAttackType, SWT.RADIO);
         m_toolkit.adapt(m_pcontin, true, true);
         m_pcontin.setText("Fire continuous");
-        m_protoAdapter.adopt(m_pcontin, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 0, 8));
+        m_protoAdapter.adopt(m_pcontin, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 0, 8));
 
         Group grpSecondaryAttackType = new Group(this, SWT.NONE);
         grpSecondaryAttackType.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 3, 1));
@@ -235,47 +235,47 @@ public class ItemFlags extends Composite {
         m_sstand = new Button(grpSecondaryAttackType, SWT.RADIO);
         m_sstand.setText("Stand");
         m_toolkit.adapt(m_sstand, true, true);
-        m_protoAdapter.adopt(m_sstand, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 4, 0));
+        m_protoAdapter.adopt(m_sstand, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 4, 0));
 
         m_sthrowpunch = new Button(grpSecondaryAttackType, SWT.RADIO);
         m_sthrowpunch.setText("Throw punch");
         m_toolkit.adapt(m_sthrowpunch, true, true);
-        m_protoAdapter.adopt(m_sthrowpunch, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 4, 1));
+        m_protoAdapter.adopt(m_sthrowpunch, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 4, 1));
 
         m_skickleg = new Button(grpSecondaryAttackType, SWT.RADIO);
         m_skickleg.setText("Kick leg");
         m_toolkit.adapt(m_skickleg, true, true);
-        m_protoAdapter.adopt(m_skickleg, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 4, 2));
+        m_protoAdapter.adopt(m_skickleg, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 4, 2));
 
         m_sswing = new Button(grpSecondaryAttackType, SWT.RADIO);
         m_sswing.setText("Swing");
         m_toolkit.adapt(m_sswing, true, true);
-        m_protoAdapter.adopt(m_sswing, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 4, 3));
+        m_protoAdapter.adopt(m_sswing, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 4, 3));
 
         m_sthrust = new Button(grpSecondaryAttackType, SWT.RADIO);
         m_sthrust.setText("Thrust");
         m_toolkit.adapt(m_sthrust, true, true);
-        m_protoAdapter.adopt(m_sthrust, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 4, 4));
+        m_protoAdapter.adopt(m_sthrust, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 4, 4));
 
         m_sthrow = new Button(grpSecondaryAttackType, SWT.RADIO);
         m_sthrow.setText("Throw");
         m_toolkit.adapt(m_sthrow, true, true);
-        m_protoAdapter.adopt(m_sthrow, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 4, 5));
+        m_protoAdapter.adopt(m_sthrow, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 4, 5));
 
         m_ssingle = new Button(grpSecondaryAttackType, SWT.RADIO);
         m_ssingle.setText("Fire single");
         m_toolkit.adapt(m_ssingle, true, true);
-        m_protoAdapter.adopt(m_ssingle, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 4, 6));
+        m_protoAdapter.adopt(m_ssingle, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 4, 6));
 
         m_sburst = new Button(grpSecondaryAttackType, SWT.RADIO);
         m_sburst.setText("Fire burst");
         m_toolkit.adapt(m_sburst, true, true);
-        m_protoAdapter.adopt(m_sburst, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 4, 7));
+        m_protoAdapter.adopt(m_sburst, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 4, 7));
 
         m_scontin = new Button(grpSecondaryAttackType, SWT.RADIO);
         m_scontin.setText("Fire continuous");
         m_toolkit.adapt(m_scontin, true, true);
-        m_protoAdapter.adopt(m_scontin, new MaskShiftOffsetValueAccessor("flagsExt", 0x0f, 4, 8));
+        m_protoAdapter.adopt(m_scontin, new MaskShiftOffsetValueAccessor(Prototype.FLAGS_EXT, 0x0f, 4, 8));
 
         Group grpAction = new Group(this, SWT.NONE);
         grpAction.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP, 1, 1));
@@ -287,27 +287,27 @@ public class ItemFlags extends Composite {
         m_useon = new Button(grpAction, SWT.CHECK);
         m_toolkit.adapt(m_useon, true, true);
         m_useon.setText("Use On");
-        m_protoAdapter.adopt(m_useon, new MaskAccessor("flagsExt", 0x00001000));
+        m_protoAdapter.adopt(m_useon, new MaskAccessor(Prototype.FLAGS_EXT, 0x00001000));
 
         m_look = new Button(grpAction, SWT.CHECK);
         m_toolkit.adapt(m_look, true, true);
         m_look.setText("Look");
-        m_protoAdapter.adopt(m_look, new MaskAccessor("flagsExt", 0x00002000));
+        m_protoAdapter.adopt(m_look, new MaskAccessor(Prototype.FLAGS_EXT, 0x00002000));
 
         m_talk = new Button(grpAction, SWT.CHECK);
         m_toolkit.adapt(m_talk, true, true);
-        m_protoAdapter.adopt(m_talk, new MaskAccessor("flagsExt", 0x00004000));
+        m_protoAdapter.adopt(m_talk, new MaskAccessor(Prototype.FLAGS_EXT, 0x00004000));
         m_talk.setText("Talk");
 
         m_pickup = new Button(grpAction, SWT.CHECK);
         m_toolkit.adapt(m_pickup, true, true);
         m_pickup.setText("Pick Up");
-        m_protoAdapter.adopt(m_pickup, new MaskAccessor("flagsExt", 0x00008000));
+        m_protoAdapter.adopt(m_pickup, new MaskAccessor(Prototype.FLAGS_EXT, 0x00008000));
 
         m_use = new Button(grpAction, SWT.CHECK);
         m_toolkit.adapt(m_use, true, true);
         m_use.setText("Use");
-        m_protoAdapter.adopt(m_use, new MaskAccessor("flagsExt", 0x00000800));
+        m_protoAdapter.adopt(m_use, new MaskAccessor(Prototype.FLAGS_EXT, 0x00000800));
 
         Group grpWeapon = new Group(this, SWT.NONE);
         grpWeapon.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP, 1, 1));
@@ -319,12 +319,12 @@ public class ItemFlags extends Composite {
         m_biggun = new Button(grpWeapon, SWT.CHECK);
         m_toolkit.adapt(m_biggun, true, true);
         m_biggun.setText("BigGun");
-        m_protoAdapter.adopt(m_biggun, new MaskAccessor("flagsExt", 0x00000100));
+        m_protoAdapter.adopt(m_biggun, new MaskAccessor(Prototype.FLAGS_EXT, 0x00000100));
 
         m_2hnd = new Button(grpWeapon, SWT.CHECK);
         m_toolkit.adapt(m_2hnd, true, true);
         m_2hnd.setText("2Hnd");
-        m_protoAdapter.adopt(m_2hnd, new MaskAccessor("flagsExt", 0x00000200));
+        m_protoAdapter.adopt(m_2hnd, new MaskAccessor(Prototype.FLAGS_EXT, 0x00000200));
     }
 
     public void fill(Ref<Prototype> proto, IProject proj) {

@@ -66,7 +66,7 @@ public class CritterDetails extends Composite implements IFillSection {
         m_ai.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         m_toolkit.adapt(m_ai);
         m_toolkit.paintBordersFor(m_ai);
-        m_protoAdapter.adopt(m_ai, new BasicAccessor("aiPacket"));
+        m_protoAdapter.adopt(m_ai, new BasicAccessor(Prototype.AI_PACKET));
 
         Label lblNewLabel = m_toolkit.createLabel(this, "Team Num", SWT.NONE);
         lblNewLabel.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -74,7 +74,7 @@ public class CritterDetails extends Composite implements IFillSection {
         m_team = m_toolkit.createText(this, "New Text", SWT.NONE);
         m_team.setText("");
         m_team.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_team, new BasicAccessor("teamNum"));
+        m_protoAdapter.adopt(m_team, new BasicAccessor(Prototype.TEAM_NUM));
 
         Label lblBodyType = m_toolkit.createLabel(this, "Body Type", SWT.NONE);
         lblBodyType.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -83,7 +83,7 @@ public class CritterDetails extends Composite implements IFillSection {
         m_bodyt.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         m_toolkit.adapt(m_bodyt);
         m_toolkit.paintBordersFor(m_bodyt);
-        m_protoAdapter.adopt(m_bodyt, new BasicAccessor("bodyType"));
+        m_protoAdapter.adopt(m_bodyt, new BasicAccessor(Prototype.BODY_TYPE));
 
         Label lblKilltype = m_toolkit.createLabel(this, "Kill Type", SWT.NONE);
         lblKilltype.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -92,7 +92,7 @@ public class CritterDetails extends Composite implements IFillSection {
         m_killt.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         m_toolkit.adapt(m_killt);
         m_toolkit.paintBordersFor(m_killt);
-        m_protoAdapter.adopt(m_killt, new BasicAccessor("killType"));
+        m_protoAdapter.adopt(m_killt, new BasicAccessor(Prototype.KILL_TYPE));
 
         Label lblDamageType = m_toolkit.createLabel(this, "Damage Type", SWT.NONE);
         lblDamageType.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -101,7 +101,7 @@ public class CritterDetails extends Composite implements IFillSection {
         m_dmgt.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         m_toolkit.adapt(m_dmgt);
         m_toolkit.paintBordersFor(m_dmgt);
-        m_protoAdapter.adopt(m_dmgt, new BasicAccessor("damageType"));
+        m_protoAdapter.adopt(m_dmgt, new BasicAccessor(Prototype.C_DMG_TYPE));
 
         Label lblNewLabel_1 = m_toolkit.createLabel(this, "Exp", SWT.NONE);
         lblNewLabel_1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -109,7 +109,7 @@ public class CritterDetails extends Composite implements IFillSection {
         m_exp = m_toolkit.createText(this, "New Text", SWT.NONE);
         m_exp.setText("");
         m_exp.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_exp, new BasicAccessor("exp"));
+        m_protoAdapter.adopt(m_exp, new BasicAccessor(Prototype.EXP));
 
     }
 

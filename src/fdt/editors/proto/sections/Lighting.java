@@ -1,7 +1,5 @@
 package fdt.editors.proto.sections;
 
-import java.util.Map;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -84,8 +82,8 @@ public class Lighting extends Composite implements IFillSection {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 int val = m_sdistance.getSelection();
-                if (!m_proto.get().getFields().get("lightDist").equals(val)) {
-                    m_proto.get().getFields().put("lightDist", val);
+                if (m_proto.get().get(Prototype.LIGHT_DIST) != val) {
+                    m_proto.get().set(Prototype.LIGHT_DIST, val);
                     m_cl.change();
                 }
             }
@@ -104,8 +102,8 @@ public class Lighting extends Composite implements IFillSection {
             public void widgetSelected(SelectionEvent e) {
                 setIntensLabel(m_sintens.getSelection());
                 int val = m_sintens.getSelection();
-                if (!m_proto.get().getFields().get("lightIntens").equals(val)) {
-                    m_proto.get().getFields().put("lightIntens", val);
+                if (m_proto.get().get(Prototype.LIGHT_INTENS) != val) {
+                    m_proto.get().set(Prototype.LIGHT_INTENS, val);
                     m_cl.change();
                 }
             }
@@ -124,11 +122,11 @@ public class Lighting extends Composite implements IFillSection {
     }
 
     public void fill(Ref<Prototype> proto, IProject proj) {
-        Map<String, Integer> fields = m_proto.get().getFields();
-        m_dist.setText(fields.get("lightDist").toString() + " hexes");
-        m_sdistance.setSelection(fields.get("lightDist"));
-        m_sintens.setSelection(fields.get("lightIntens"));
-        setIntensLabel(fields.get("lightIntens"));
+        Prototype pro = m_proto.get();
+        m_dist.setText(pro.get(Prototype.LIGHT_DIST) + " hexes");
+        m_sdistance.setSelection(pro.get(Prototype.LIGHT_DIST));
+        m_sintens.setSelection(pro.get(Prototype.LIGHT_INTENS));
+        setIntensLabel(pro.get(Prototype.LIGHT_INTENS));
     }
 
     @Override

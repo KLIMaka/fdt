@@ -82,7 +82,7 @@ public class Weapon extends Composite implements IFillSection {
         m_anim.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 3, 1));
         m_toolkit.adapt(m_anim);
         m_toolkit.paintBordersFor(m_anim);
-        m_protoAdapter.adopt(m_anim, new BasicAccessor("animCode"));
+        m_protoAdapter.adopt(m_anim, new BasicAccessor(Prototype.ANIM_CODE));
 
         Label label_1 = new Label(this, SWT.SEPARATOR | SWT.VERTICAL);
         label_1.setLayoutData(new GridData(SWT.LEFT, SWT.FILL, false, false, 1, 6));
@@ -100,7 +100,7 @@ public class Weapon extends Composite implements IFillSection {
         m_rounds = m_toolkit.createText(composite_1, "New Text", SWT.NONE);
         m_rounds.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         m_rounds.setText("");
-        m_protoAdapter.adopt(m_rounds, new BasicAccessor("rounds"));
+        m_protoAdapter.adopt(m_rounds, new BasicAccessor(Prototype.ROUNDS));
 
         Label lblCaliber = m_toolkit.createLabel(composite_1, "Caliber", SWT.NONE);
         lblCaliber.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -109,7 +109,7 @@ public class Weapon extends Composite implements IFillSection {
         m_caliber.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         m_toolkit.adapt(m_caliber);
         m_toolkit.paintBordersFor(m_caliber);
-        m_protoAdapter.adopt(m_caliber, new BasicAccessor("caliber"));
+        m_protoAdapter.adopt(m_caliber, new BasicAccessor(Prototype.WEAPON_CALIBER));
 
         Label lblCritFail = m_toolkit.createLabel(composite_1, "Crit fail", SWT.NONE);
         lblCritFail.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -117,7 +117,7 @@ public class Weapon extends Composite implements IFillSection {
         m_crit = m_toolkit.createText(composite_1, "New Text", SWT.NONE);
         m_crit.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         m_crit.setText("");
-        m_protoAdapter.adopt(m_crit, new BasicAccessor("critFail"));
+        m_protoAdapter.adopt(m_crit, new BasicAccessor(Prototype.CRIT_FAIL));
 
         Label lblMaxAmmo = m_toolkit.createLabel(composite_1, "Max ammo", SWT.NONE);
         lblMaxAmmo.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -125,7 +125,7 @@ public class Weapon extends Composite implements IFillSection {
         m_maxammo = m_toolkit.createText(composite_1, "New Text", SWT.NONE);
         m_maxammo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         m_maxammo.setText("");
-        m_protoAdapter.adopt(m_maxammo, new BasicAccessor("maxAmmo"));
+        m_protoAdapter.adopt(m_maxammo, new BasicAccessor(Prototype.MAX_AMMO));
 
         Label lblAmmo = new Label(composite_1, SWT.NONE);
         lblAmmo.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -134,14 +134,14 @@ public class Weapon extends Composite implements IFillSection {
 
         m_ammo = m_toolkit.createButton(composite_1, "", SWT.NONE);
         m_ammo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adoptPIDSelector(m_ammo, new BasicAccessor("ammoPID"), PRO.ITEM, 4);
+        m_protoAdapter.adoptPIDSelector(m_ammo, new BasicAccessor(Prototype.AMMO_PID), PRO.ITEM, 4);
 
         Label lblProjectile = m_toolkit.createLabel(composite_1, "Projectile", SWT.NONE);
         lblProjectile.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 
         m_proj = m_toolkit.createButton(composite_1, "", SWT.NONE);
         m_proj.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
-        m_protoAdapter.adoptPIDSelector(m_proj, new BasicAccessor("projPID"), PRO.MISC, -1);
+        m_protoAdapter.adoptPIDSelector(m_proj, new BasicAccessor(Prototype.PROJ_PID), PRO.MISC, -1);
 
         Label lblDamage = m_toolkit.createLabel(this, "Damage", SWT.NONE);
         lblDamage.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -151,7 +151,7 @@ public class Weapon extends Composite implements IFillSection {
         gd_mindmg.widthHint = 39;
         m_mindmg.setLayoutData(gd_mindmg);
         m_mindmg.setText("000");
-        m_protoAdapter.adopt(m_mindmg, new BasicAccessor("minDmg"));
+        m_protoAdapter.adopt(m_mindmg, new BasicAccessor(Prototype.MIN_DMG));
 
         Label lblNewLabel = m_toolkit.createLabel(this, "-", SWT.NONE);
         lblNewLabel.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -161,7 +161,7 @@ public class Weapon extends Composite implements IFillSection {
         gd_maxdmg.widthHint = 42;
         m_maxdmg.setLayoutData(gd_maxdmg);
         m_maxdmg.setText("000");
-        m_protoAdapter.adopt(m_maxdmg, new BasicAccessor("maxDmg"));
+        m_protoAdapter.adopt(m_maxdmg, new BasicAccessor(Prototype.MAX_DMG));
 
         Label lblDamagetype = m_toolkit.createLabel(this, "Damage type", SWT.NONE);
         lblDamagetype.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -170,7 +170,7 @@ public class Weapon extends Composite implements IFillSection {
         m_dmgt.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 3, 1));
         m_toolkit.adapt(m_dmgt);
         m_toolkit.paintBordersFor(m_dmgt);
-        m_protoAdapter.adopt(m_dmgt, new BasicAccessor("dmgType"));
+        m_protoAdapter.adopt(m_dmgt, new BasicAccessor(Prototype.DMG_TYPE));
 
         Label lblPerk = m_toolkit.createLabel(this, "Perk", SWT.NONE);
         lblPerk.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -179,7 +179,7 @@ public class Weapon extends Composite implements IFillSection {
         m_perk.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 3, 1));
         m_toolkit.adapt(m_perk);
         m_toolkit.paintBordersFor(m_perk);
-        m_protoAdapter.adopt(m_perk, new OffsetAccessor("perk", 1));
+        m_protoAdapter.adopt(m_perk, new OffsetAccessor(Prototype.WEAPON_PERK, 1));
 
         Label label = new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
         label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 4, 1));
@@ -210,17 +210,17 @@ public class Weapon extends Composite implements IFillSection {
         m_at1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         m_toolkit.adapt(m_at1);
         m_toolkit.paintBordersFor(m_at1);
-        m_protoAdapter.adopt(m_at1, new MaskShiftAccessor("flagsExt", 0xf, 0));
+        m_protoAdapter.adopt(m_at1, new MaskShiftAccessor(Prototype.FLAGS_EXT, 0xf, 0));
 
         m_range1 = m_toolkit.createText(composite, "New Text", SWT.NONE);
         m_range1.setText("");
         m_range1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_range1, new BasicAccessor("maxRange1"));
+        m_protoAdapter.adopt(m_range1, new BasicAccessor(Prototype.MAX_RANGE1));
 
         m_ap1 = m_toolkit.createText(composite, "New Text", SWT.NONE);
         m_ap1.setText("");
         m_ap1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_ap1, new BasicAccessor("apCost1"));
+        m_protoAdapter.adopt(m_ap1, new BasicAccessor(Prototype.AP_COST1));
 
         Label lblMode_1 = m_toolkit.createLabel(composite, "Mode 2", SWT.NONE);
         lblMode_1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -229,17 +229,17 @@ public class Weapon extends Composite implements IFillSection {
         m_at2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         m_toolkit.adapt(m_at2);
         m_toolkit.paintBordersFor(m_at2);
-        m_protoAdapter.adopt(m_at2, new MaskShiftAccessor("flagsExt", 0xf, 4));
+        m_protoAdapter.adopt(m_at2, new MaskShiftAccessor(Prototype.FLAGS_EXT, 0xf, 4));
 
         m_range2 = m_toolkit.createText(composite, "New Text", SWT.NONE);
         m_range2.setText("");
         m_range2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_range2, new BasicAccessor("maxRange2"));
+        m_protoAdapter.adopt(m_range2, new BasicAccessor(Prototype.MAX_RANGE2));
 
         m_ap2 = m_toolkit.createText(composite, "New Text", SWT.NONE);
         m_ap2.setText("");
         m_ap2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_ap2, new BasicAccessor("apCost2"));
+        m_protoAdapter.adopt(m_ap2, new BasicAccessor(Prototype.AP_COST2));
 
         Label label_2 = new Label(composite, SWT.SEPARATOR | SWT.HORIZONTAL);
         label_2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 4, 1));
@@ -251,7 +251,7 @@ public class Weapon extends Composite implements IFillSection {
         m_mins = m_toolkit.createText(composite, "New Text", SWT.NONE);
         m_mins.setText("");
         m_mins.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_mins, new BasicAccessor("minST"));
+        m_protoAdapter.adopt(m_mins, new BasicAccessor(Prototype.MIN_ST));
         new Label(composite, SWT.NONE);
         new Label(composite, SWT.NONE);
 

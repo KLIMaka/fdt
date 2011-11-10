@@ -123,7 +123,7 @@ public class CritterSet extends Composite implements IFillSection {
         m_toolkit.adapt(m_critterDetails);
         m_toolkit.paintBordersFor(m_critterDetails);
 
-        m_img = new FIDSelectPanel(m_composite_1, fact, "gndFID", FID.CRITTERS);
+        m_img = new FIDSelectPanel(m_composite_1, fact, Prototype.FID, FID.CRITTERS);
         m_img.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
         m_toolkit.adapt(m_img);
         m_toolkit.paintBordersFor(m_img);

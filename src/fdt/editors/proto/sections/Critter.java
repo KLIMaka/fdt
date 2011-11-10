@@ -35,8 +35,8 @@ import fdt.FDT;
 import fdt.editors.proto.CategoryParser;
 import fdt.editors.proto.CategoryParser.Category;
 import fdt.editors.proto.CategoryParser.Field;
-import fdt.editors.proto.adaptors.ProtoAdaptorsFactory;
 import fdt.editors.proto.IChangeListener;
+import fdt.editors.proto.adaptors.ProtoAdaptorsFactory;
 import fdt.util.Ref;
 
 public class Critter extends Composite implements IFillSection {
@@ -113,7 +113,7 @@ public class Critter extends Composite implements IFillSection {
         @Override
         protected Object getValue(Object element) {
             Skill skill = (Skill) element;
-            return m_proto.get().getFields().get(skill.id).toString();
+            return m_proto.get().get(skill.id);
         }
 
         @Override
@@ -121,8 +121,8 @@ public class Critter extends Composite implements IFillSection {
             Skill skill = (Skill) element;
             try {
                 Integer val = Integer.valueOf(value.toString());
-                if (!val.equals(m_proto.get().getFields().get(skill.id))) {
-                    m_proto.get().getFields().put(skill.id, val);
+                if (!val.equals(m_proto.get().get(skill.id))) {
+                    m_proto.get().set(skill.id, val);
                     getViewer().refresh(element);
                     m_changeListener.change();
                 }
@@ -155,18 +155,18 @@ public class Critter extends Composite implements IFillSection {
         @Override
         protected Object getValue(Object element) {
             Field stat = (Field) element;
-            String name = stat.getName().concat(m_mode == PLUS ? "+" : "");
-            return m_proto.get().getFields().get(name).toString();
+            int name = stat.getName() + (m_mode == PLUS ? 140 : 0);
+            return m_proto.get().get(name);
         }
 
         @Override
         protected void setValue(Object element, Object value) {
             Field stat = (Field) element;
-            String name = stat.getName().concat(m_mode == PLUS ? "+" : "");
+            int name = stat.getName() + (m_mode == PLUS ? 140 : 0);
             try {
                 Integer val = Integer.valueOf(value.toString());
-                if (!val.equals(m_proto.get().getFields().get(stat.getName()))) {
-                    m_proto.get().getFields().put(name, val);
+                if (!val.equals(m_proto.get().get(stat.getName()))) {
+                    m_proto.get().set(name, val);
                     getViewer().refresh(element);
                     m_changeListener.change();
                 }
@@ -186,9 +186,9 @@ public class Critter extends Composite implements IFillSection {
 
     private static class Skill {
         public String name;
-        public String id;
+        public int    id;
 
-        public Skill(String name, String id) {
+        public Skill(String name, int id) {
             this.name = name;
             this.id = id;
         }
@@ -255,7 +255,7 @@ public class Critter extends Composite implements IFillSection {
 
             public String getText(Object element) {
                 if (element instanceof Field && m_proto.get() != null) {
-                    return m_proto.get().getFields().get(((Field) element).getName()).toString();
+                    return String.valueOf(m_proto.get().get(((Field) element).getName()));
                 }
 
                 return null;
@@ -274,7 +274,7 @@ public class Critter extends Composite implements IFillSection {
 
             public String getText(Object element) {
                 if (element instanceof Field && m_proto.get() != null) {
-                    return m_proto.get().getFields().get(((Field) element).getName() + "+").toString();
+                    return String.valueOf(m_proto.get().get(((Field) element).getName() + 140));
                 }
 
                 return null;
@@ -293,8 +293,8 @@ public class Critter extends Composite implements IFillSection {
             public String getText(Object element) {
 
                 if (element instanceof Field && m_proto.get() != null) {
-                    int p = (Integer) m_proto.get().getFields().get(((Field) element).getName() + "+");
-                    int b = (Integer) m_proto.get().getFields().get(((Field) element).getName());
+                    int p = m_proto.get().get(((Field) element).getName() + 140);
+                    int b = m_proto.get().get(((Field) element).getName());
                     return String.valueOf(p + b);
                 }
 
@@ -345,7 +345,7 @@ public class Critter extends Composite implements IFillSection {
 
             public String getText(Object element) {
                 if (m_proto.get() == null) return null;
-                return m_proto.get().getFields().get(((Skill) element).id).toString() + "%";
+                return m_proto.get().get(((Skill) element).id) + "%";
             }
         });
         TreeColumn trclmnValue = treeViewerColumn_4.getColumn();
@@ -359,24 +359,24 @@ public class Critter extends Composite implements IFillSection {
         MSG skill_msg = FDT.getCachedMsg(m_proj, "text/english/game/skill.msg");
         Skill[] skills = new Skill[18];
 
-        skills[0] = new Skill(skill_msg.get(100).getMsg(), "smallGuns");
-        skills[1] = new Skill(skill_msg.get(101).getMsg(), "bigGuns");
-        skills[2] = new Skill(skill_msg.get(102).getMsg(), "energyWeapons");
-        skills[3] = new Skill(skill_msg.get(103).getMsg(), "unarmed");
-        skills[4] = new Skill(skill_msg.get(104).getMsg(), "melee");
-        skills[5] = new Skill(skill_msg.get(105).getMsg(), "throwing");
-        skills[6] = new Skill(skill_msg.get(106).getMsg(), "firsAid");
-        skills[7] = new Skill(skill_msg.get(107).getMsg(), "doctor");
-        skills[8] = new Skill(skill_msg.get(108).getMsg(), "sneak");
-        skills[9] = new Skill(skill_msg.get(109).getMsg(), "lockpick");
-        skills[10] = new Skill(skill_msg.get(110).getMsg(), "steal");
-        skills[11] = new Skill(skill_msg.get(111).getMsg(), "traps");
-        skills[12] = new Skill(skill_msg.get(112).getMsg(), "science");
-        skills[13] = new Skill(skill_msg.get(113).getMsg(), "repair");
-        skills[14] = new Skill(skill_msg.get(114).getMsg(), "speech");
-        skills[15] = new Skill(skill_msg.get(115).getMsg(), "barter");
-        skills[16] = new Skill(skill_msg.get(116).getMsg(), "gambling");
-        skills[17] = new Skill(skill_msg.get(117).getMsg(), "outdoorsman");
+        skills[0] = new Skill(skill_msg.get(100).getMsg(), Prototype.SMALL_GUNS);
+        skills[1] = new Skill(skill_msg.get(101).getMsg(), Prototype.BIG_GUNS);
+        skills[2] = new Skill(skill_msg.get(102).getMsg(), Prototype.ENERG_WEP);
+        skills[3] = new Skill(skill_msg.get(103).getMsg(), Prototype.UNARMED);
+        skills[4] = new Skill(skill_msg.get(104).getMsg(), Prototype.MELEE);
+        skills[5] = new Skill(skill_msg.get(105).getMsg(), Prototype.THROWING);
+        skills[6] = new Skill(skill_msg.get(106).getMsg(), Prototype.FIRST_AID);
+        skills[7] = new Skill(skill_msg.get(107).getMsg(), Prototype.DOCTOR);
+        skills[8] = new Skill(skill_msg.get(108).getMsg(), Prototype.SNEAK);
+        skills[9] = new Skill(skill_msg.get(109).getMsg(), Prototype.LOCKPIÑK);
+        skills[10] = new Skill(skill_msg.get(110).getMsg(), Prototype.STEAL);
+        skills[11] = new Skill(skill_msg.get(111).getMsg(), Prototype.TRAPS);
+        skills[12] = new Skill(skill_msg.get(112).getMsg(), Prototype.SCIENCE);
+        skills[13] = new Skill(skill_msg.get(113).getMsg(), Prototype.REPAIR);
+        skills[14] = new Skill(skill_msg.get(114).getMsg(), Prototype.SPEECH);
+        skills[15] = new Skill(skill_msg.get(115).getMsg(), Prototype.BARTER);
+        skills[16] = new Skill(skill_msg.get(116).getMsg(), Prototype.GAMBLING);
+        skills[17] = new Skill(skill_msg.get(117).getMsg(), Prototype.OUTDOORSMAN);
 
         m_skills.setInput(skills);
     }

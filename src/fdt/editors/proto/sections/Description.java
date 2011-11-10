@@ -59,7 +59,7 @@ public class Description extends Composite implements IFillSection {
         m_name = m_toolkit.createText(this, "New Text", SWT.NONE);
         m_name.setText("");
         m_name.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.MIDDLE, 1, 1));
-        m_protoAdapter.adoptMsg(m_name, new MaskOffsetAccessor("protoID", 0x0000ffff, 100, 0));
+        m_protoAdapter.adoptMsg(m_name, new MaskOffsetAccessor(Prototype.PROTO_ID, 0x0000ffff, 100, 0));
 
         Label lblDescription = m_toolkit.createLabel(this, "Description", SWT.NONE);
         lblDescription.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.TOP, 1, 1));
@@ -70,7 +70,7 @@ public class Description extends Composite implements IFillSection {
         twd_descr.grabHorizontal = true;
         twd_descr.heightHint = 60;
         m_descr.setLayoutData(twd_descr);
-        m_protoAdapter.adoptMsg(m_descr, new MaskOffsetAccessor("protoID", 0x0000ffff, 100, 1));
+        m_protoAdapter.adoptMsg(m_descr, new MaskOffsetAccessor(Prototype.PROTO_ID, 0x0000ffff, 100, 1));
 
     }
 

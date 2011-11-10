@@ -50,10 +50,10 @@ public class ProtoProvider implements IFrmListContentProvider, IFrmListLabelProv
                     IEntry lstent = (IEntry) o;
                     Prototype pro = new Prototype(FDT.getFile(m_proj, PRO.getProDir(m_type) + lstent.getValue())
                             .getContents());
-                    int id = (pro.getFields().get("protoID") & 0x0000ffff) * 100;
+                    int id = (pro.get(Prototype.PROTO_ID) & 0x0000ffff) * 100;
 
-                    int fid = pro.getFields().get(
-                            m_type == PRO.ITEM && pro.getFields().get("objSubType") != 1 ? "invFID" : "gndFID");
+                    int fid = pro.get(m_type == PRO.ITEM && pro.get(Prototype.SUB_TYPE) != 1 ? Prototype.INV_FID
+                            : Prototype.FID);
                     MSG msg = FDT.getCachedMsg(m_proj, PRO.getMsg(m_type));
                     if (msg.get(id) != null) {
                         ent.name = msg.get(id).getMsg();

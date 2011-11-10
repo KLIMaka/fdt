@@ -184,8 +184,8 @@ public class SceneryFlags extends Composite {
     }
 
     public void fill(Prototype proto, IProject proj) {
-        int flags = (Integer) proto.getFields().get("flags");
-        int extflags = (Integer) proto.getFields().get("flagsExt");
+        int flags = (Integer) proto.get(Prototype.FLAGS);
+        int extflags = (Integer) proto.get(Prototype.FLAGS_EXT);
 
         m_flat.setSelection((flags & 0x00000008) != 0);
         m_noblock.setSelection((flags & 0x00000010) != 0);

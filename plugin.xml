@@ -10,14 +10,14 @@
             icon="icons/sample.gif"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             class="fdt.editors.ssl.SSLEditor"
-            id="ssl.editors.SSLEditor">
+            id="FDT.editors.SSLEditor">
       </editor>
       <editor
             class="fdt.editors.scriptslist.ScriptsList"
-            default="false"
+            default="true"
             filenames="script.lst"
             icon="icons/methpro_obj.gif"
-            id="SSL.editor1"
+            id="FDT.editors.scriptsList"
             name="Scripts List Editor">
       </editor>
       <editor
@@ -26,14 +26,8 @@
             default="false"
             extensions="rix"
             icon="icons/add.gif"
-            id="ssl.editors.ssl.rix.RIXViewer"
+            id="FDT.editors.rix"
             name="RIX Viewer">
-      </editor>
-      <editor
-            class="fdt.editors.frm.FRMViewer"
-            extensions="frm"
-            id="ssl.editors.frm.FRMViewer"
-            name="FRM Viewer">
       </editor>
    </extension>
    <extension
@@ -83,23 +77,23 @@
    <extension
          point="org.eclipse.ui.newWizards">
       <wizard
-            category="SSL.category1"
+            category="FDT.newWizards"
             class="fdt.wizards.NewFalloutProjectWizard"
-            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            finalPerspective="org.eclipse.ui.resourcePerspective"
             icon="icons/sample.gif"
-            id="SSL.projectWizard"
-            name="New Fallout Project Wizzard"
+            id="FDT.wizards.project"
+            name="New Fallout Project Wizard"
             project="true">
       </wizard>
       <category
-            id="SSL.category1"
+            id="FDT.newWizards"
             name="Fallout">
       </category>
       <wizard
-            category="SSL.category1"
+            category="FDT.newWizards"
             class="fdt.wizards.NewScriptWizard"
             icon="icons/add.gif"
-            id="SSL.scriptWizard"
+            id="FDT.wizards.script"
             name="New script"
             project="false">
       </wizard>
@@ -108,7 +102,7 @@
          point="org.eclipse.ui.preferencePages">
       <page
             class="fdt.preferences.FalloutPreferencePage"
-            id="ssl.preferences.FalloutPreferencePage"
+            id="FDT.preferences.main"
             name="Fallout">
       </page>
    </extension>
@@ -122,8 +116,8 @@
          point="org.eclipse.ui.propertyPages">
       <page
             class="fdt.properties.FalloutProjectPropertyPage"
-            id="ssl.properties.falloutPropertyPage"
-            name="Fallout Settings"
+            id="FDT.properties.project"
+            name="Fallout"
             nameFilter="*">
          <enabledWhen>
             <instanceof
@@ -136,35 +130,35 @@
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             adaptable="true"
-            id="SSL.contribution1"
+            id="FDT.packedResourceContribution"
             objectClass="fdt.adapters.PackedFileAdapter">
          <action
                class="fdt.popup.actions.ExctractAction"
                icon="icons/export_wiz.gif"
-               id="SSL.newAction"
+               id="FDT.action.extractToPatches"
                label="Extract to patches">
          </action>
       </objectContribution>
       <objectContribution
             adaptable="true"
-            id="SSL.objectContribution1"
+            id="FDT.scriptMenuContribution"
             objectClass="fdt.adapters.ScriptAdapter">
          <action
                class="fdt.popup.actions.ShowMsgAction"
                icon="icons/methpro_obj.gif"
-               id="SSL.action2"
+               id="FDT.action.showMsg"
                label="Show Msg">
          </action>
          <action
                class="fdt.popup.actions.ShowDisassemblyAction"
                icon="icons/methpub_obj.gif"
-               id="SSL.action5"
+               id="FDT.action.showInt"
                label="Show Int">
          </action>
          <action
                class="fdt.popup.actions.DecompileAction"
                icon="icons/export_wiz.gif"
-               id="SSL.action.decompile"
+               id="FDT.action.decompile"
                label="Decompile">
          </action>
       </objectContribution>

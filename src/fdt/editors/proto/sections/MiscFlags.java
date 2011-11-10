@@ -108,7 +108,7 @@ public class MiscFlags extends Composite {
     }
 
     public void fill(Prototype proto, IProject proj) {
-        int flags = (Integer) proto.getFields().get("flags");
+        int flags = (Integer) proto.get(Prototype.FLAGS);
 
         m_flat.setSelection((flags & 0x00000008) != 0);
         m_noblock.setSelection((flags & 0x00000010) != 0);

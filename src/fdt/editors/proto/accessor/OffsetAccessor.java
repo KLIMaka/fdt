@@ -7,7 +7,7 @@ public class OffsetAccessor extends BasicAccessor {
 
     private int m_offset;
 
-    public OffsetAccessor(String field, int off) {
+    public OffsetAccessor(int field, int off) {
         super(field);
         m_offset = off;
     }

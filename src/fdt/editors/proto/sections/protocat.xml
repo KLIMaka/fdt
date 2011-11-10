@@ -2,47 +2,49 @@
 <top>
 	<category name="Critter">
 		<category name="SPECIAL">
-			<field name="strength" id="100" />
-			<field name="perception" id="101" />
-			<field name="endurance" id="102" />
-			<field name="charisma" id="103" />
-			<field name="intelligence" id="104" />
-			<field name="agility" id="105" />
-			<field name="luck" id="106" />
+			<field name="48" id="100" />
+			<field name="52" id="101" />
+			<field name="56" id="102" />
+			<field name="60" id="103" />
+			<field name="64" id="104" />
+			<field name="68" id="105" />
+			<field name="72" id="106" />
 		</category>
 
 		<category name="DT">
-			<field name="DTNormal" id="117" />
-			<field name="DTLaser" id="118" />
-			<field name="DTFire" id="119" />
-			<field name="DTPlasma" id="120" />
-			<field name="DTElectrical" id="121" />
-			<field name="DTEMP" id="122" />
-			<field name="DTExplode" id="123" />
+			<field name="116" id="117" />
+			<field name="120" id="118" />
+			<field name="124" id="119" />
+			<field name="128" id="120" />
+			<field name="132" id="121" />
+			<field name="136" id="122" />
+			<field name="140" id="123" />
 		</category>
 
 		<category name="DR">
-			<field name="DRNormal"  id="124"/>
-			<field name="DRLaser"  id="125"/>
-			<field name="DRFire"  id="126"/>
-			<field name="DRPlasma"  id="127"/>
-			<field name="DRElectrical"  id="128"/>
-			<field name="DREMP"  id="129"/>
-			<field name="DRExplode"  id="130"/>
+			<field name="144"  id="124"/>
+			<field name="148"  id="125"/>
+			<field name="152"  id="126"/>
+			<field name="156"  id="127"/>
+			<field name="160"  id="128"/>
+			<field name="164"  id="129"/>
+			<field name="168"  id="130"/>
+			<field name="172"  id="131"/>
+			<field name="176"  id="132"/>
 		</category>
 
-		<field name="hp" id="107" />
-		<field name="ap" id="108" />
-		<field name="ac" id="109" />
-		<field name="unarmedDamage" id="110" />
-		<field name="meleeDamage" id="111" />
-		<field name="carryWeight" id="112" />
-		<field name="sequence" id="113" />
-		<field name="healingRate" id="114" />
-		<field name="criticalChance" id="115" />
-		<field name="betterCriticals" id="117" />
-		<field name="age" id="133" />
-		<field name="gender" id="134" />
+		<field name="76" id="107" />
+		<field name="80" id="108" />
+		<field name="84" id="109" />
+		<field name="88" id="110" />
+		<field name="92" id="111" />
+		<field name="96" id="112" />
+		<field name="100" id="113" />
+		<field name="104" id="114" />
+		<field name="108" id="115" />
+		<field name="112" id="117" />
+		<field name="180" id="133" />
+		<field name="184" id="134" />
 	</category>
 
 	<!-- <category name="General"> <field name="protoID" /> <field name="descrID" 

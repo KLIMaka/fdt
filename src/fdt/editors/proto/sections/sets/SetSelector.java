@@ -6,6 +6,7 @@ import java.util.TreeMap;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import fdk.proto.PRO;
 import fdk.proto.Prototype;
 import fdt.editors.proto.adaptors.ProtoAdaptorsFactory;
 import fdt.editors.proto.sections.IFillSection;
@@ -27,8 +28,8 @@ public class SetSelector {
     }
 
     public IFillSection getSet(Prototype proto) {
-        if (proto.getFields().get("size") != null) return m_set.get("itmgen");
-        if (proto.getFields().get("strength") != null) return m_set.get("critter");
+        if (proto.getType() == PRO.ITEM) return m_set.get("itmgen");
+        if (proto.getType() == PRO.CRITTER) return m_set.get("critter");
         return m_set.get("default");
     }
 }

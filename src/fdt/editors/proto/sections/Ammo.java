@@ -64,7 +64,7 @@ public class Ammo extends Composite implements IFillSection {
         m_caliber.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1));
         m_toolkit.adapt(m_caliber);
         m_toolkit.paintBordersFor(m_caliber);
-        m_protoAdapter.adopt(m_caliber, new BasicAccessor("caliber"));
+        m_protoAdapter.adopt(m_caliber, new BasicAccessor(Prototype.AMMO_CALIBER));
 
         Label label = new Label(this, SWT.SEPARATOR | SWT.VERTICAL);
         label.setLayoutData(new GridData(SWT.LEFT, SWT.FILL, false, false, 1, 3));
@@ -76,7 +76,7 @@ public class Ammo extends Composite implements IFillSection {
         m_q = m_toolkit.createText(this, "New Text", SWT.NONE);
         m_q.setText("");
         m_q.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_q, new BasicAccessor("quantity"));
+        m_protoAdapter.adopt(m_q, new BasicAccessor(Prototype.QUANTITY));
 
         Label lblAcAdjust = m_toolkit.createLabel(this, "AC adjust", SWT.NONE);
         lblAcAdjust.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -84,7 +84,7 @@ public class Ammo extends Composite implements IFillSection {
         m_ac = m_toolkit.createText(this, "New Text", SWT.NONE);
         m_ac.setText("");
         m_ac.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1));
-        m_protoAdapter.adopt(m_ac, new BasicAccessor("acAjust"));
+        m_protoAdapter.adopt(m_ac, new BasicAccessor(Prototype.AC_AJUST));
 
         Label lblDrAdjust = m_toolkit.createLabel(this, "DR adjust", SWT.NONE);
         lblDrAdjust.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -92,7 +92,7 @@ public class Ammo extends Composite implements IFillSection {
         m_dr = m_toolkit.createText(this, "New Text", SWT.NONE);
         m_dr.setText("");
         m_dr.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_dr, new BasicAccessor("drAjust"));
+        m_protoAdapter.adopt(m_dr, new BasicAccessor(Prototype.DR_ADJUST));
 
         Label lblDmgMult = m_toolkit.createLabel(this, "Dmg mod", SWT.NONE);
         lblDmgMult.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -103,7 +103,7 @@ public class Ammo extends Composite implements IFillSection {
         gd_mult.minimumWidth = 20;
         m_mult.setLayoutData(gd_mult);
         m_mult.setText("");
-        m_protoAdapter.adopt(m_mult, new BasicAccessor("dmgMult"));
+        m_protoAdapter.adopt(m_mult, new BasicAccessor(Prototype.DMG_MULT));
 
         Label label_1 = m_toolkit.createLabel(this, "/", SWT.NONE);
         label_1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -114,7 +114,7 @@ public class Ammo extends Composite implements IFillSection {
         gd_div.minimumWidth = 20;
         m_div.setLayoutData(gd_div);
         m_div.setText("");
-        m_protoAdapter.adopt(m_div, new BasicAccessor("dmgDiv"));
+        m_protoAdapter.adopt(m_div, new BasicAccessor(Prototype.DMG_DIV));
         new Label(this, SWT.NONE);
         new Label(this, SWT.NONE);
 

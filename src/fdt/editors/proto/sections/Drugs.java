@@ -86,7 +86,7 @@ public class Drugs extends Composite implements IFillSection {
         m_stat0.setLayoutData(gd_stat0);
         m_toolkit.adapt(m_stat0);
         m_toolkit.paintBordersFor(m_stat0);
-        m_protoAdapter.adopt(m_stat0, new OffsetAccessor("stat0", 2));
+        m_protoAdapter.adopt(m_stat0, new OffsetAccessor(Prototype.STAT_0, 2));
 
         Label lblStat_1 = m_toolkit.createLabel(grpStats, "Stat 1", SWT.NONE);
         lblStat_1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -95,7 +95,7 @@ public class Drugs extends Composite implements IFillSection {
         m_stat1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         m_toolkit.adapt(m_stat1);
         m_toolkit.paintBordersFor(m_stat1);
-        m_protoAdapter.adopt(m_stat1, new OffsetAccessor("stat1", 2));
+        m_protoAdapter.adopt(m_stat1, new OffsetAccessor(Prototype.STAT_1, 2));
 
         Label lblStat_2 = m_toolkit.createLabel(grpStats, "Stat 2", SWT.NONE);
         lblStat_2.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -104,7 +104,7 @@ public class Drugs extends Composite implements IFillSection {
         m_stat2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         m_toolkit.adapt(m_stat2);
         m_toolkit.paintBordersFor(m_stat2);
-        m_protoAdapter.adopt(m_stat2, new OffsetAccessor("stat2", 2));
+        m_protoAdapter.adopt(m_stat2, new OffsetAccessor(Prototype.STAT_2, 2));
 
         Group grpEffect = new Group(this, SWT.NONE);
         grpEffect.setLayout(new GridLayout(1, false));
@@ -116,17 +116,17 @@ public class Drugs extends Composite implements IFillSection {
         m_a00 = m_toolkit.createText(grpEffect, "New Text", SWT.NONE);
         m_a00.setText("");
         m_a00.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_a00, new BasicAccessor("0amount0"));
+        m_protoAdapter.adopt(m_a00, new BasicAccessor(Prototype.AMOUNT00));
 
         m_a01 = m_toolkit.createText(grpEffect, "New Text", SWT.NONE);
         m_a01.setText("");
         m_a01.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_a01, new BasicAccessor("0amount1"));
+        m_protoAdapter.adopt(m_a01, new BasicAccessor(Prototype.AMOUNT01));
 
         m_a02 = m_toolkit.createText(grpEffect, "New Text", SWT.NONE);
         m_a02.setText("");
         m_a02.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_a02, new BasicAccessor("0amount2"));
+        m_protoAdapter.adopt(m_a02, new BasicAccessor(Prototype.AMOUNT02));
 
         Group grpEffect_1 = new Group(this, SWT.NONE);
         grpEffect_1.setLayout(new GridLayout(1, false));
@@ -138,24 +138,25 @@ public class Drugs extends Composite implements IFillSection {
         m_a10 = m_toolkit.createText(grpEffect_1, "New Text", SWT.NONE);
         m_a10.setText("");
         m_a10.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_a10, new BasicAccessor("1amount0"));
+        m_protoAdapter.adopt(m_a10, new BasicAccessor(Prototype.AMOUNT10));
 
         m_a11 = m_toolkit.createText(grpEffect_1, "New Text", SWT.NONE);
         m_a11.setText("");
         m_a11.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_a11, new BasicAccessor("1amount1"));
+        m_protoAdapter.adopt(m_a11, new BasicAccessor(Prototype.AMOUNT11));
 
         m_a12 = m_toolkit.createText(grpEffect_1, "New Text", SWT.NONE);
         m_a12.setText("");
         m_a12.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_a12, new BasicAccessor("1amount2"));
+        m_protoAdapter.adopt(m_a12, new BasicAccessor(Prototype.AMOUNT12));
 
+        @SuppressWarnings("unused")
         Label lblDealy = m_toolkit.createLabel(grpEffect_1, "Dealy", SWT.NONE);
 
         m_d1 = m_toolkit.createText(grpEffect_1, "New Text", SWT.NONE);
         m_d1.setText("");
         m_d1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adoptM2H(m_d1, new BasicAccessor("1duration"));
+        m_protoAdapter.adoptM2H(m_d1, new BasicAccessor(Prototype.DURATION1));
 
         Group grpEffect_2 = new Group(this, SWT.NONE);
         grpEffect_2.setLayout(new GridLayout(1, false));
@@ -167,24 +168,25 @@ public class Drugs extends Composite implements IFillSection {
         m_a20 = m_toolkit.createText(grpEffect_2, "New Text", SWT.NONE);
         m_a20.setText("");
         m_a20.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_a20, new BasicAccessor("2amount0"));
+        m_protoAdapter.adopt(m_a20, new BasicAccessor(Prototype.AMOUNT20));
 
         m_a21 = m_toolkit.createText(grpEffect_2, "New Text", SWT.NONE);
         m_a21.setText("");
         m_a21.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_a21, new BasicAccessor("2amount1"));
+        m_protoAdapter.adopt(m_a21, new BasicAccessor(Prototype.AMOUNT21));
 
         m_a22 = m_toolkit.createText(grpEffect_2, "New Text", SWT.NONE);
         m_a22.setText("");
         m_a22.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_a22, new BasicAccessor("2amount2"));
+        m_protoAdapter.adopt(m_a22, new BasicAccessor(Prototype.AMOUNT22));
 
+        @SuppressWarnings("unused")
         Label lblDealy_1 = m_toolkit.createLabel(grpEffect_2, "Dealy", SWT.NONE);
 
         m_d2 = m_toolkit.createText(grpEffect_2, "New Text", SWT.NONE);
         m_d2.setText("");
         m_d2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adoptM2H(m_d2, new BasicAccessor("2duration"));
+        m_protoAdapter.adoptM2H(m_d2, new BasicAccessor(Prototype.DURATION2));
 
         Composite composite = new Composite(this, SWT.NONE);
         composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 4, 1));
@@ -192,13 +194,14 @@ public class Drugs extends Composite implements IFillSection {
         m_toolkit.paintBordersFor(composite);
         composite.setLayout(new GridLayout(2, false));
 
+        @SuppressWarnings("unused")
         Label lblAddictionEffect = m_toolkit.createLabel(composite, "Addiction effect", SWT.NONE);
 
         m_effect = new Combo(composite, SWT.NONE);
         m_effect.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
         m_toolkit.adapt(m_effect);
         m_toolkit.paintBordersFor(m_effect);
-        m_protoAdapter.adopt(m_effect, new OffsetAccessor("wEffect", 1));
+        m_protoAdapter.adopt(m_effect, new OffsetAccessor(Prototype.W_EFFECT, 1));
 
         Composite composite_2 = new Composite(this, SWT.NONE);
         composite_2.setLayout(new GridLayout(2, false));
@@ -212,7 +215,7 @@ public class Drugs extends Composite implements IFillSection {
         m_rate = m_toolkit.createText(composite_2, "New Text", SWT.NONE);
         m_rate.setText("");
         m_rate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adopt(m_rate, new BasicAccessor("addictionRate"));
+        m_protoAdapter.adopt(m_rate, new BasicAccessor(Prototype.ADDICT_RATE));
 
         Composite composite_1 = new Composite(this, SWT.NONE);
         composite_1.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
@@ -226,7 +229,7 @@ public class Drugs extends Composite implements IFillSection {
         m_time = m_toolkit.createText(composite_1, "New Text", SWT.NONE);
         m_time.setText("");
         m_time.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdapter.adoptM2H(m_time, new BasicAccessor("wOnSet"));
+        m_protoAdapter.adoptM2H(m_time, new BasicAccessor(Prototype.W_ONSET));
 
     }
 

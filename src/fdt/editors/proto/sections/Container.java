@@ -57,17 +57,17 @@ public class Container extends Composite implements IFillSection {
         m_size = m_toolkit.createText(this, "New Text", SWT.NONE);
         m_size.setText("");
         m_size.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdaptor.adopt(m_size, new BasicAccessor("maxSize"));
+        m_protoAdaptor.adopt(m_size, new BasicAccessor(Prototype.MAX_SIZE));
 
         m_pickup = new Button(this, SWT.CHECK);
         m_toolkit.adapt(m_pickup, true, true);
         m_pickup.setText("Cannot Pick Up ");
-        m_protoAdaptor.adopt(m_pickup, new MaskAccessor("containerFlags", 0x00000001));
+        m_protoAdaptor.adopt(m_pickup, new MaskAccessor(Prototype.OPEN_FLAGS, 0x00000001));
 
         m_hands = new Button(this, SWT.CHECK);
         m_toolkit.adapt(m_hands, true, true);
         m_hands.setText("Magic Hands Grnd");
-        m_protoAdaptor.adopt(m_hands, new MaskAccessor("containerFlags", 0x00000008));
+        m_protoAdaptor.adopt(m_hands, new MaskAccessor(Prototype.OPEN_FLAGS, 0x00000008));
 
     }
 

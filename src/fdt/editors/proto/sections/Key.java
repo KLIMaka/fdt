@@ -50,7 +50,7 @@ public class Key extends Composite implements IFillSection {
 
     @Override
     public void fill(Ref<Prototype> proto, IProject proj) throws Exception {
-        int key = (Integer) proto.get().getFields().get("unknown");
+        int key = (Integer) proto.get().get(Prototype.KEY_UNK);
         m_key.setText("0x" + Integer.toHexString(key).toUpperCase());
     }
 

@@ -24,7 +24,7 @@ public class DefaultSet extends Composite implements IFillSection {
 
     private final FormToolkit m_toolkit = new FormToolkit(Display.getCurrent());
     private Description       m_descr;
-    private FIDSelectPanel          m_img;
+    private FIDSelectPanel    m_img;
 
     /**
      * Create the composite.
@@ -71,7 +71,7 @@ public class DefaultSet extends Composite implements IFillSection {
         xpndblcmpstImage.setClient(composite);
         composite.setLayout(new GridLayout(1, false));
 
-        m_img = new FIDSelectPanel(composite, fact, "gndFID", FID.SCENERY);
+        m_img = new FIDSelectPanel(composite, fact, Prototype.FID, FID.SCENERY);
         GridData gd_img = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
         gd_img.heightHint = 233;
         m_img.setLayoutData(gd_img);

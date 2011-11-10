@@ -29,8 +29,8 @@ public class ItemGeneral extends Composite {
     private Text                m_size;
     private Text                m_weight;
     private Text                m_cost;
-    private FIDSelectPanel            m_inv;
-    private FIDSelectPanel            m_gnd;
+    private FIDSelectPanel      m_inv;
+    private FIDSelectPanel      m_gnd;
 
     private ProtoControlAdapter m_protoAdaptor;
 
@@ -62,7 +62,7 @@ public class ItemGeneral extends Composite {
         m_size = m_toolkit.createText(this, "New Text", SWT.NONE);
         m_size.setText("");
         m_size.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdaptor.adopt(m_size, new BasicAccessor("size"));
+        m_protoAdaptor.adopt(m_size, new BasicAccessor(Prototype.SIZE));
 
         Label lblWeight = m_toolkit.createLabel(this, "Weight", SWT.NONE);
         lblWeight.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -70,7 +70,7 @@ public class ItemGeneral extends Composite {
         m_weight = m_toolkit.createText(this, "New Text", SWT.NONE);
         m_weight.setText("");
         m_weight.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdaptor.adopt(m_weight, new BasicAccessor("weight"));
+        m_protoAdaptor.adopt(m_weight, new BasicAccessor(Prototype.WEIGHT));
 
         Label lblCost = m_toolkit.createLabel(this, "Cost", SWT.NONE);
         lblCost.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -78,7 +78,7 @@ public class ItemGeneral extends Composite {
         m_cost = m_toolkit.createText(this, "New Text", SWT.NONE);
         m_cost.setText("");
         m_cost.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        m_protoAdaptor.adopt(m_cost, new BasicAccessor("cost"));
+        m_protoAdaptor.adopt(m_cost, new BasicAccessor(Prototype.COST));
 
         Label label = new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
         label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 6, 1));
@@ -93,12 +93,12 @@ public class ItemGeneral extends Composite {
         composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 6, 1));
         m_toolkit.paintBordersFor(composite);
 
-        m_gnd = new FIDSelectPanel(composite, fact, "gndFID", FID.ITEMS);
+        m_gnd = new FIDSelectPanel(composite, fact, Prototype.FID, FID.ITEMS);
         m_gnd.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.FILL_GRAB, 1, 1));
         m_toolkit.adapt(m_gnd);
         m_toolkit.paintBordersFor(m_gnd);
 
-        m_inv = new FIDSelectPanel(composite, fact, "invFID", FID.INVEN);
+        m_inv = new FIDSelectPanel(composite, fact, Prototype.INV_FID, FID.INVEN);
         TableWrapData twd_m_inv = new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.FILL_GRAB, 1, 1);
         twd_m_inv.heightHint = 148;
         m_inv.setLayoutData(twd_m_inv);

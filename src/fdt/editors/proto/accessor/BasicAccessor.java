@@ -5,20 +5,20 @@ import fdt.util.Ref;
 
 public class BasicAccessor implements IProtoAccessor {
 
-    protected String m_field;
+    protected int m_field;
 
-    public BasicAccessor(String field) {
+    public BasicAccessor(int field) {
         m_field = field;
     }
 
     @Override
     public int get(Ref<Prototype> proto) {
-        return (Integer) proto.get().getFields().get(m_field);
+        return (Integer) proto.get().get(m_field);
     }
 
     @Override
     public void set(Ref<Prototype> proto, int val) {
-        proto.get().getFields().put(m_field, val);
+        proto.get().set(m_field, val);
     }
 
 }

@@ -30,7 +30,7 @@ public class FilteredProtoProvider extends ProtoProvider {
                 try {
                     Prototype pro = new Prototype(FDT.getFile(m_proj, PRO.getProDir(m_type) + ent.getValue())
                             .getContents());
-                    if (pro.getFields().get("objSubType").equals(m_filter)) {
+                    if (pro.get(Prototype.SUB_TYPE) == m_filter) {
                         filtered.add(ent);
                     }
                 } catch (Exception e) {}

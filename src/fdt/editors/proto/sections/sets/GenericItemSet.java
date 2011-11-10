@@ -164,7 +164,7 @@ public class GenericItemSet extends Composite implements IFillSection {
     }
 
     private IFillSection getDetails(Ref<Prototype> proto) {
-        int subtype = (Integer) proto.get().getFields().get("objSubType");
+        int subtype = (Integer) proto.get().get(Prototype.SUB_TYPE);
 
         switch (subtype) {
         case 0:

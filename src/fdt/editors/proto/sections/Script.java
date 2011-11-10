@@ -61,7 +61,7 @@ public class Script extends Composite implements IFillSection {
         GridData gd_id = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
         gd_id.widthHint = 70;
         m_id.setLayoutData(gd_id);
-        m_protoAdapter.adoptHex(m_id, new BasicAccessor("scriptID"));
+        m_protoAdapter.adoptHex(m_id, new BasicAccessor(Prototype.SCRIPT));
 
         m_descr = m_toolkit.createText(this, "New Text", SWT.READ_ONLY);
         m_descr.setText("");
@@ -71,7 +71,7 @@ public class Script extends Composite implements IFillSection {
 
     @Override
     public void fill(Ref<Prototype> proto, IProject proj) throws Exception {
-        int sid = (Integer) proto.get().getFields().get("scriptID");
+        int sid = (Integer) proto.get().get(Prototype.SCRIPT);
         m_protoAdapter.fill();
         if (sid != -1) {
             m_descr.setText(((ScriptLstMaker.Entry) m_scriptLst.get(sid & 0x0000ffff)).getComment());

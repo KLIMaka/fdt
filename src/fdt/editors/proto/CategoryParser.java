@@ -34,15 +34,15 @@ public class CategoryParser extends DefaultHandler {
     }
 
     public static class Field {
-        private String m_name;
-        private int    m_descr;
+        private int m_name;
+        private int m_descr;
 
-        public Field(String name, int descr) {
+        public Field(int name, int descr) {
             m_name = name;
             m_descr = descr;
         }
 
-        public String getName() {
+        public int getName() {
             return m_name;
         }
 
@@ -78,7 +78,8 @@ public class CategoryParser extends DefaultHandler {
             m_name_stack.add(amap.getValue("name"));
         }
         if (raw_name == "field") {
-            m_stack.lastElement().add(new Field(amap.getValue("name"), Integer.parseInt(amap.getValue("id"))));
+            m_stack.lastElement().add(
+                    new Field(Integer.parseInt(amap.getValue("name")), Integer.parseInt(amap.getValue("id"))));
         }
     }
 

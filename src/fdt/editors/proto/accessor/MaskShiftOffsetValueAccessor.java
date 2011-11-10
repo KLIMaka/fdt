@@ -7,7 +7,7 @@ public class MaskShiftOffsetValueAccessor extends MaskShiftAccessor {
 
     protected int m_value;
 
-    public MaskShiftOffsetValueAccessor(String field, int mask, int offset, int val) {
+    public MaskShiftOffsetValueAccessor(int field, int mask, int offset, int val) {
         super(field, mask, offset);
         m_value = val;
     }

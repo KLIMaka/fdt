@@ -121,17 +121,12 @@ public class ScriptsLstPage extends FormPage {
             IProject project = ((FileEditorInput) getEditorInput()).getFile().getProject();
 
             Charset cs = Charset.forName(m_project.getDefaultCharset());
-            m_scriptsLst = new LST(FDT.getFile(project, "scripts/SCRIPTS.LST").getContents(), cs,
-                    new ScriptLstMaker());
+            m_scriptsLst = new LST(FDT.getFile(project, "scripts/SCRIPTS.LST").getContents(), cs, new ScriptLstMaker());
 
             IFile SCRNameMsg = FDT.getFile(project, "text/english/game/scrname.msg");
             m_scrnameMsg = new MSG(SCRNameMsg.getContents(), cs);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (CoreException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -188,7 +183,7 @@ public class ScriptsLstPage extends FormPage {
                 IContributionItem[] items = super.getItems();
                 List<IContributionItem> filteredItems = new ArrayList<IContributionItem>();
                 for (IContributionItem item : items) {
-                    if (item != null && item.getId() != null && item.getId().startsWith("SSL"))
+                    if (item != null && item.getId() != null && item.getId().startsWith("FDT"))
                         filteredItems.add(item);
                 }
 

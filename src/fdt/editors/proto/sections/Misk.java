@@ -1,7 +1,5 @@
 package fdt.editors.proto.sections;
 
-import java.util.Map;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -68,11 +66,9 @@ public class Misk extends Composite implements IFillSection {
 
     @Override
     public void fill(Ref<Prototype> proto, IProject proj) throws Exception {
-        Map<String, Integer> fields = proto.get().getFields();
-
-        m_pid.setText("0x" + Integer.toHexString(fields.get("powerPID")).toUpperCase());
-        m_type.setText("0x" + Integer.toHexString(fields.get("powerType")).toUpperCase());
-        m_charges.setText("0x" + Integer.toHexString(fields.get("charges")).toUpperCase());
+        m_pid.setText("0x" + Integer.toHexString(proto.get().get(Prototype.POWER_PID)).toUpperCase());
+        m_type.setText("0x" + Integer.toHexString(proto.get().get(Prototype.POWER_TYPE)).toUpperCase());
+        m_charges.setText("0x" + Integer.toHexString(proto.get().get(Prototype.CHARGES)).toUpperCase());
     }
 
     @Override

@@ -56,7 +56,6 @@ public class Armor extends Composite implements IFillSection {
     private Label               m_label;
     private Label               m_label_1;
 
-    private int[]               m_frames  = { 0, 0 };
     private int                 m_frame   = 0;
     private IProject            m_proj;
 
@@ -115,12 +114,12 @@ public class Armor extends Composite implements IFillSection {
         m_DTNormal = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_DTNormal.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 1));
         m_DTNormal.setText("");
-        m_protoAdaptor.adopt(m_DTNormal, new BasicAccessor("DTNormal"));
+        m_protoAdaptor.adopt(m_DTNormal, new BasicAccessor(Prototype.DT_NORMAL));
 
         m_DRNormal = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_DRNormal.setText("");
         m_DRNormal.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 1));
-        m_protoAdaptor.adopt(m_DRNormal, new BasicAccessor("DRNormal"));
+        m_protoAdaptor.adopt(m_DRNormal, new BasicAccessor(Prototype.DR_NORMAL));
 
         Label lblLaser = m_toolkit.createLabel(composite_3, "Laser", SWT.NONE);
         lblLaser.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.MIDDLE, 1, 1));
@@ -129,12 +128,12 @@ public class Armor extends Composite implements IFillSection {
         m_DTLaser = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_DTLaser.setText("");
         m_DTLaser.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 1));
-        m_protoAdaptor.adopt(m_DTLaser, new BasicAccessor("DTLaser"));
+        m_protoAdaptor.adopt(m_DTLaser, new BasicAccessor(Prototype.DT_LASER));
 
         m_DRLaser = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_DRLaser.setText("");
         m_DRLaser.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 1));
-        m_protoAdaptor.adopt(m_DRLaser, new BasicAccessor("DRLaser"));
+        m_protoAdaptor.adopt(m_DRLaser, new BasicAccessor(Prototype.DR_LASER));
 
         Label lblNewLabel = m_toolkit.createLabel(composite_3, "Fire", SWT.NONE);
         lblNewLabel.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.MIDDLE, 1, 1));
@@ -143,12 +142,12 @@ public class Armor extends Composite implements IFillSection {
         m_DTFire = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_DTFire.setText("");
         m_DTFire.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 1));
-        m_protoAdaptor.adopt(m_DTFire, new BasicAccessor("DTFire"));
+        m_protoAdaptor.adopt(m_DTFire, new BasicAccessor(Prototype.DT_FIRE));
 
         m_DRFire = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_DRFire.setText("");
         m_DRFire.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 1));
-        m_protoAdaptor.adopt(m_DRFire, new BasicAccessor("DRFire"));
+        m_protoAdaptor.adopt(m_DRFire, new BasicAccessor(Prototype.DR_FIRE));
 
         Label lblPlasma = m_toolkit.createLabel(composite_3, "Plasma", SWT.NONE);
         lblPlasma.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.MIDDLE, 1, 1));
@@ -157,12 +156,12 @@ public class Armor extends Composite implements IFillSection {
         m_DTPlasma = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_DTPlasma.setText("");
         m_DTPlasma.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 1));
-        m_protoAdaptor.adopt(m_DTPlasma, new BasicAccessor("DTPlasma"));
+        m_protoAdaptor.adopt(m_DTPlasma, new BasicAccessor(Prototype.DT_PLASMA));
 
         m_DRPlasma = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_DRPlasma.setText("");
         m_DRPlasma.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 1));
-        m_protoAdaptor.adopt(m_DRPlasma, new BasicAccessor("DRPlasma"));
+        m_protoAdaptor.adopt(m_DRPlasma, new BasicAccessor(Prototype.DR_PLASMA));
 
         Label lblElectrical = m_toolkit.createLabel(composite_3, "Electrical", SWT.NONE);
         lblElectrical.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.MIDDLE, 1, 1));
@@ -171,12 +170,12 @@ public class Armor extends Composite implements IFillSection {
         m_DTElec = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_DTElec.setText("");
         m_DTElec.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 1));
-        m_protoAdaptor.adopt(m_DTElec, new BasicAccessor("DTElectrical"));
+        m_protoAdaptor.adopt(m_DTElec, new BasicAccessor(Prototype.DT_ELEC));
 
         m_DRElec = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_DRElec.setText("");
         m_DRElec.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 1));
-        m_protoAdaptor.adopt(m_DRElec, new BasicAccessor("DRElectrical"));
+        m_protoAdaptor.adopt(m_DRElec, new BasicAccessor(Prototype.DR_ELEC));
 
         Label lblEmp = m_toolkit.createLabel(composite_3, "EMP", SWT.NONE);
         lblEmp.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.MIDDLE, 1, 1));
@@ -185,12 +184,12 @@ public class Armor extends Composite implements IFillSection {
         m_DTEMP = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_DTEMP.setText("");
         m_DTEMP.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 1));
-        m_protoAdaptor.adopt(m_DTEMP, new BasicAccessor("DTEMP"));
+        m_protoAdaptor.adopt(m_DTEMP, new BasicAccessor(Prototype.DT_EMP));
 
         m_DREMP = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_DREMP.setText("");
         m_DREMP.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 1));
-        m_protoAdaptor.adopt(m_DREMP, new BasicAccessor("DREMP"));
+        m_protoAdaptor.adopt(m_DREMP, new BasicAccessor(Prototype.DR_EMP));
 
         Label lblExplosion = m_toolkit.createLabel(composite_3, "Explosion", SWT.NONE);
         lblExplosion.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.MIDDLE, 1, 1));
@@ -199,12 +198,12 @@ public class Armor extends Composite implements IFillSection {
         m_DTExpl = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_DTExpl.setText("");
         m_DTExpl.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.MIDDLE, 1, 1));
-        m_protoAdaptor.adopt(m_DTExpl, new BasicAccessor("DTExplode"));
+        m_protoAdaptor.adopt(m_DTExpl, new BasicAccessor(Prototype.DT_EXPL));
 
         m_DRExpl = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_DRExpl.setText("");
         m_DRExpl.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 1));
-        m_protoAdaptor.adopt(m_DRExpl, new BasicAccessor("DRExplode"));
+        m_protoAdaptor.adopt(m_DRExpl, new BasicAccessor(Prototype.DR_EXPL));
 
         m_label = new Label(composite_3, SWT.SEPARATOR | SWT.HORIZONTAL);
         m_label.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP, 1, 3));
@@ -216,7 +215,7 @@ public class Armor extends Composite implements IFillSection {
         m_ac = m_toolkit.createText(composite_3, "New Text", SWT.NONE);
         m_ac.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP, 1, 1));
         m_ac.setText("100");
-        m_protoAdaptor.adopt(m_ac, new BasicAccessor("ac"));
+        m_protoAdaptor.adopt(m_ac, new BasicAccessor(Prototype.AC));
 
         @SuppressWarnings("unused")
         Label label = m_toolkit.createLabel(composite_3, "%", SWT.NONE);
@@ -232,7 +231,7 @@ public class Armor extends Composite implements IFillSection {
         m_perk.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP, 1, 1));
         m_toolkit.adapt(m_perk);
         m_toolkit.paintBordersFor(m_perk);
-        m_protoAdaptor.adopt(m_perk, new OffsetAccessor("perk", 1));
+        m_protoAdaptor.adopt(m_perk, new OffsetAccessor(Prototype.ARMOR_PERK, 1));
 
         m_male = new Button(composite_2, SWT.RADIO);
         m_male.addSelectionListener(new SelectionAdapter() {
@@ -267,7 +266,7 @@ public class Armor extends Composite implements IFillSection {
         m_toolkit.adapt(m_female, true, true);
         m_female.setText("Female");
 
-        m_view = new FIDSelectPanel(composite_2, fact, "maleFID", FID.CRITTERS);
+        m_view = new FIDSelectPanel(composite_2, fact, Prototype.MALE_FID, FID.CRITTERS);
         m_view.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.FILL, 1, 2));
         m_toolkit.adapt(m_view);
         m_toolkit.paintBordersFor(m_view);
@@ -281,9 +280,9 @@ public class Armor extends Composite implements IFillSection {
 
     private void updateFrame() throws CoreException {
         if (m_frame == 0) {
-            m_view.setField("maleFID");
+            m_view.setField(Prototype.MALE_FID);
         } else {
-            m_view.setField("femaleFID");
+            m_view.setField(Prototype.FEMALE_FID);
         }
         m_view.fill();
     }
