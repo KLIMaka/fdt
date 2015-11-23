@@ -3,19 +3,19 @@ package fdt.adapters;
 import org.eclipse.core.resources.IProject;
 
 public class ScriptAdapter {
-    private IProject m_project;
-    private String   m_name;
+	private IProject project;
+	private String name;
 
-    public ScriptAdapter(IProject proj, String name) {
-        m_project = proj;
-        m_name = name;
-    }
+	public ScriptAdapter(IProject proj, String name) {
+		this.project = proj;
+		this.name = name;
+	}
 
-    public String getName() {
-        return m_name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public IProject getProject() {
-        return m_project;
-    }
+	public IProject getProject() {
+		return project;
+	}
 }

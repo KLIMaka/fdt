@@ -1,13 +1,9 @@
 package fdt.preferences;
 
-import org.eclipse.jface.preference.DirectoryFieldEditor;
-import org.eclipse.jface.preference.FieldEditorPreferencePage;
-import org.eclipse.jface.preference.FileFieldEditor;
-import org.eclipse.jface.preference.StringFieldEditor;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.jface.preference.*;
+import org.eclipse.ui.*;
 
-import fdt.FDT;
+import fdt.Fdt;
 
 /**
  * This class represents a preference page that is contributed to the
@@ -22,37 +18,34 @@ import fdt.FDT;
 
 public class FalloutPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
-    public FalloutPreferencePage() {
-        super("Fallout", GRID);
-        setPreferenceStore(FDT.getDefault().getPreferenceStore());
-        setDescription("Default Fallout preferences");
-    }
+	public FalloutPreferencePage() {
+		super("Fallout", GRID);
+		setPreferenceStore(Fdt.getDefault().getPreferenceStore());
+		setDescription("Default Fallout preferences");
+	}
 
-    /**
-     * Creates the field editors. Field editors are abstractions of the common
-     * GUI blocks needed to manipulate various types of preferences. Each field
-     * editor knows how to save and restore itself.
-     */
-    public void createFieldEditors() {
-        addField(new MyEncodingFieldEditor(PreferenceConstants.P_ENCODING, "Default encoding", "Encoding",
-                getFieldEditorParent()));
+	/**
+	 * Creates the field editors. Field editors are abstractions of the common GUI
+	 * blocks needed to manipulate various types of preferences. Each field editor
+	 * knows how to save and restore itself.
+	 */
+	public void createFieldEditors() {
+		addField(new MyEncodingFieldEditor(PreferenceConstants.P_ENCODING, "Default encoding", "Encoding", getFieldEditorParent()));
 
-        addField(new DirectoryFieldEditor(PreferenceConstants.P_FALLOUT_DIRECTORY, "Fallout directory",
-                getFieldEditorParent()));
+		addField(new DirectoryFieldEditor(PreferenceConstants.P_FALLOUT_DIRECTORY, "Fallout directory", getFieldEditorParent()));
 
-        addField(new FileFieldEditor(PreferenceConstants.P_COMPILER, "SSL Compiler", getFieldEditorParent()));
-        addField(new StringFieldEditor(PreferenceConstants.P_COMPILER_OPTIONS, "Compiler options",
-                StringFieldEditor.UNLIMITED, getFieldEditorParent()));
+		addField(new FileFieldEditor(PreferenceConstants.P_COMPILER, "SSL Compiler", getFieldEditorParent()));
+		addField(new StringFieldEditor(PreferenceConstants.P_COMPILER_OPTIONS, "Compiler options", StringFieldEditor.UNLIMITED, getFieldEditorParent()));
 
-        addField(new FileFieldEditor(PreferenceConstants.P_PREPROCESSOR, "Preprocesor", getFieldEditorParent()));
+		addField(new FileFieldEditor(PreferenceConstants.P_PREPROCESSOR, "Preprocesor", getFieldEditorParent()));
 
-        addField(new StringFieldEditor(PreferenceConstants.P_PP_OPTIONS, "Preprocessor options",
-                StringFieldEditor.UNLIMITED, getFieldEditorParent()));
+		addField(new StringFieldEditor(PreferenceConstants.P_PP_OPTIONS, "Preprocessor options", StringFieldEditor.UNLIMITED, getFieldEditorParent()));
 
-        addField(new FileFieldEditor(PreferenceConstants.P_DECOMPILER, "Decompiler", getFieldEditorParent()));
-    }
+		addField(new FileFieldEditor(PreferenceConstants.P_DECOMPILER, "Decompiler", getFieldEditorParent()));
+	}
 
-    @Override
-    public void init(IWorkbench workbench) {}
+	@Override
+	public void init(IWorkbench workbench) {
+	}
 
 }

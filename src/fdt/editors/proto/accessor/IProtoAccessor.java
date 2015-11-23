@@ -4,7 +4,7 @@ import fdk.proto.Prototype;
 import fdt.util.Ref;
 
 public interface IProtoAccessor {
-    public int get(Ref<Prototype> proto);
+	public int get(Ref<Prototype> proto);
 
-    public void set(Ref<Prototype> proto, int val);
+	public void set(Ref<Prototype> proto, int val);
 }
